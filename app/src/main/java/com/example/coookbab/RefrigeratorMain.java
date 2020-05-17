@@ -54,14 +54,14 @@ public class RefrigeratorMain extends AppCompatActivity {
                             .using(new FirebaseImageLoader())
                             .load(storageRef)
                             .into(imageView);
-                    imageView.setOnClickListener(new View.OnClickListener() {
+                    /*imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent=new Intent(RefrigeratorMain.this,AddIngredient.class);
                             intent.putExtra("filename",filename);
                             startActivity(intent);
                         }
-                    });
+                    });*/
                     imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
                     linearLayout.addView(imageView);
                 }
