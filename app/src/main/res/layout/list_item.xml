@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/list_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#A7FFEB3B"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+        android:text="리스트 화면"
+        android:textSize="20dp" />
+    <TextView
+        android:id="@+id/list_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="리스트 내용"
+        android:textSize="15dp"
+        android:maxLines="2"
+        android:background="#A7FFEB3B"
+        android:paddingLeft="20dp"
+        android:ellipsize="end"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"/>
+</LinearLayout>
