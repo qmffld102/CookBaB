@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -29,39 +30,48 @@ public class RefrigeratorMain extends AppCompatActivity {
     private DatabaseReference mReference;
     private FirebaseStorage storage;
     private LinearLayout linearLayout;
+    private ImageView plusimage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refrigerator_main);
+
+        plusimage =(ImageView)findViewById(R.id.imageView);
         linearLayout=(LinearLayout)findViewById(R.id.linearlayout);
         mDatabase = FirebaseDatabase.getInstance();
         mReference = mDatabase.getReference("user").child("refrigerator").child("ingredient");
-
+        storage=FirebaseStorage.getInstance("gs://cook-bab.appspot.com");
+        final StorageReference storageplus = storage.getReference().child("ingredient_photo").child("plus.jpg");
        mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                linearLayout.removeAllViews();
+                //linearLayout.removeAllViews();
+
+                Glide.with(RefrigeratorMain.this)
+                        .using(new FirebaseImageLoader())
+                        .load(storageplus)
+                        .into(plusimage);
 
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
                     IngredientData temp = messageData.getValue(IngredientData.class);
                     final String filename=String.valueOf(temp.getIngredientid());
-                    Log.e("!!!!!!!!!!",filename);
+                    Log.e("###", String.valueOf(temp));
+
                     ImageView imageView = new ImageView(getApplicationContext());
-                    storage=FirebaseStorage.getInstance("gs://cook-bab.appspot.com");
-                    StorageReference storageRef = storage.getReference().child("ingredient/"+filename+".JPG");
+                    StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".JPG");
                     Glide.with(RefrigeratorMain.this)
                             .using(new FirebaseImageLoader())
                             .load(storageRef)
                             .into(imageView);
-                    /*imageView.setOnClickListener(new View.OnClickListener() {
+                    imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent=new Intent(RefrigeratorMain.this,AddIngredient.class);
+                            Intent intent=new Intent(RefrigeratorMain.this,IngredientDetail.class);
                             intent.putExtra("filename",filename);
                             startActivity(intent);
                         }
-                    });*/
+                    });
                     imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
                     linearLayout.addView(imageView);
                 }
@@ -72,6 +82,13 @@ public class RefrigeratorMain extends AppCompatActivity {
 
             }
         });
+       plusimage.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(RefrigeratorMain.this, AddIngredient.class);
+               startActivity(intent);
+           }
+       });
     }
 
 }
