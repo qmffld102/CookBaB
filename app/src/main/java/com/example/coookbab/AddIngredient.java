@@ -88,10 +88,11 @@ public class AddIngredient extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddIngredient.this, RefrigeratorMain.class);
-                addDatabase.push().child(name);
-                addDatabase.child(name).child("ingredientid").setValue(number);
-                addDatabase.child(name).child("num").setValue(editnum.getText().toString());
-                addDatabase.child(name).child("life").setValue(editlife.getText().toString());
+                addDatabase.push().child(number);
+                addDatabase.child(number).child("name").setValue(name);
+                addDatabase.child(number).child("ingredientid").setValue(number);
+                addDatabase.child(number).child("num").setValue(editnum.getText().toString());
+                addDatabase.child(number).child("life").setValue(editlife.getText().toString());
                 startActivity(intent);
             }
         });
