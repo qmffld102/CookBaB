@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,18 +21,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.sql.Ref;
 
 public class AddIngredient extends AppCompatActivity {
 
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference mReference;
+    private DatabaseReference addDatabase;
     private LinearLayout linearLayout;
     private EditText editnum;
     private EditText editlife;
     private Button savebtn;
     private Button canclebtn;
+
     private String number;
     private String name;
 
@@ -46,56 +48,54 @@ public class AddIngredient extends AppCompatActivity {
         savebtn =(Button)findViewById(R.id.savebtn);
         canclebtn =(Button)findViewById(R.id.canclebtn);
         final String Uid="hUeiODcSXrSEe1MJ9stKlAbcpcv2";
-        mDatabase = FirebaseDatabase.getInstance();
-        Intent intent =getIntent();
-        final String where =intent.getExtras().getString("where");
 
-        mReference=mDatabase.getReference("user").child(Uid).child("refrigerator").child(where).child("ingredient");
-        DatabaseReference spaceRef = mDatabase.getReference("how_to_sore");
+        addDatabase = FirebaseDatabase.getInstance().getReference();
 
         linearLayout.removeAllViews();
         final LinearLayout.LayoutParams layoutParams =
                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT /* layout_width */, LinearLayout.LayoutParams.WRAP_CONTENT /* layout_height */, 1f /* layout_weight */);
 
-        for(int i = 1; i<59; i++){
-            final int numb=i;
-            spaceRef.child(String.valueOf(i)).child("ingredient").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.getValue(String.class)!=null){
-                        String value = dataSnapshot.getValue(String.class);
-                        Log.e(this.getClass().getName(), value);
-                        final TextView ingredient = new TextView(getApplicationContext());
-                        ingredient.setText(value);
-                        ingredient.setLayoutParams(layoutParams);
-                        ingredient.setId(numb);
-                        linearLayout.addView(ingredient);
-                        ingredient.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                number= String.valueOf(ingredient.getId());
-                                name =String.valueOf(ingredient.getText());
-                            }
-                        });
-                    }
+        addDatabase.child("how_to_sore").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(final DataSnapshot foodData : dataSnapshot.getChildren()){
+                    String food = foodData.child("ingredient").getValue().toString();
+                    Log.e(this.getClass().getName(), food);
+                    final TextView tv_food = new TextView(getApplicationContext());
+                    tv_food.setTextSize(25);
+                    tv_food.setText(food.toString());
+                    tv_food.setLayoutParams(layoutParams);
+                    tv_food.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            tv_food.setBackgroundColor(Color.RED);
+                            name = tv_food.getText().toString();
+                            number= String.valueOf(foodData.getKey());
+                        }
+                    });
+                    linearLayout.addView(tv_food);
                 }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-        }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        addDatabase=FirebaseDatabase.getInstance().getReference("user").child(Uid.toString()).child("refrigerator").child("ingredient");
 
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddIngredient.this, RefrigeratorMain.class);
-                mReference.push().child(name);
-                mReference.child(name).child("ingredientid").setValue(number);
-                mReference.child(name).child("num").setValue(editnum.getText().toString());
-                mReference.child(name).child("life").setValue(editlife.getText().toString());
+                addDatabase.push().child(name);
+                addDatabase.child(name).child("ingredientid").setValue(number);
+                addDatabase.child(name).child("num").setValue(editnum.getText().toString());
+                addDatabase.child(name).child("life").setValue(editlife.getText().toString());
                 startActivity(intent);
             }
         });
+
         canclebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
