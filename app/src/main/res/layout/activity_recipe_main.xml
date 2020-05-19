@@ -8,8 +8,14 @@
     tools:context=".RecipeMain">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_recipelist"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/rcplinearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 </LinearLayout>

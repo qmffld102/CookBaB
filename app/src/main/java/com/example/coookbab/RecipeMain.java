@@ -2,68 +2,56 @@ package com.example.coookbab;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.example.coookbab.mRecyclerView.ListItem;
-import com.example.coookbab.mRecyclerView.MyAdapter;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class RecipeMain extends AppCompatActivity {
     private DatabaseReference RcpListDatabase;
-
-    private RecyclerView rv_recipelist;
-    private RecyclerView.Adapter adapter;
-    private List<ListItem> listItems;
-
+    private LinearLayout rcplinearlayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_main);
 
+        rcplinearlayout = findViewById(R.id.rcplinearlayout);
         RcpListDatabase = FirebaseDatabase.getInstance().getReference();
 
-        rv_recipelist = (RecyclerView) findViewById(R.id.rv_recipelist);
-        rv_recipelist.setHasFixedSize(true);
-        rv_recipelist.setLayoutManager(new LinearLayoutManager(this));
+        rcplinearlayout.removeAllViews();
+        final LinearLayout.LayoutParams layoutParams =
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        listItems=new ArrayList<>();
-
-
-        for(int j=1; j<20; j++){
-            readdata(j);
-        }
-
-        listItems.add(new ListItem("test", "test"));
-        adapter = new MyAdapter(listItems, this);
-        rv_recipelist.setAdapter(adapter);
-    }
-
-    private void readdata(final int jj) {
-
-        RcpListDatabase.child("recipe").child(String.valueOf(jj)).child("title").addValueEventListener(new ValueEventListener() {
+        RcpListDatabase.child("recipe").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue(String.class)!=null){
-
-                    String value = dataSnapshot.getValue(String.class);
-
-                    Log.e(this.getClass().getName(), String.valueOf(jj)+" "+value.toString());
-
-                    listItems.add(new ListItem("test", "test"));
-                    listItems.add(new ListItem(value.toString(), " "));
-                    listItems.add(new ListItem("test2", "test2"));
-                }else{
+                for(final DataSnapshot recipeData : dataSnapshot.getChildren()){
+                    String rt = recipeData.child("title").getValue().toString();
+                    Log.e(this.getClass().getName(), rt);
+                    TextView tv_recipe = new TextView(getApplicationContext());
+                    tv_recipe.setTextSize(30);
+                    tv_recipe.setHeight(200);
+                    tv_recipe.setText(rt.toString());
+                    tv_recipe.setLayoutParams(layoutParams);
+                    tv_recipe.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
+                            intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
+                            startActivity(intent);
+                        }
+                    });
+                    rcplinearlayout.addView(tv_recipe);
                 }
             }
 
@@ -72,5 +60,9 @@ public class RecipeMain extends AppCompatActivity {
 
             }
         });
+
     }
+
+
+
 }
