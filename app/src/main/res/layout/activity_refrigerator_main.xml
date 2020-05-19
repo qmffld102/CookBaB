@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".RefrigeratorMain">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="308dp">
+        android:layout_height="376dp">
 
         <LinearLayout
             android:id="@+id/linearlayout"
@@ -21,7 +22,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="225dp"
                 app:srcCompat="@drawable/plus" />
+
         </LinearLayout>
     </ScrollView>
 
-</RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="352dp">
+
+        <LinearLayout
+            android:id="@+id/linearlayoutn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/imageViewn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/sss" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
