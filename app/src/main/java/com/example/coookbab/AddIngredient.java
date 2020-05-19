@@ -47,6 +47,7 @@ public class AddIngredient extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mReference = mDatabase.getReference("how_to_sore");
 
+        /*
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -69,6 +70,37 @@ public class AddIngredient extends AppCompatActivity {
 
             }
         });
+
+         */
+        linearLayout.removeAllViews();
+        final LinearLayout.LayoutParams layoutParams =
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT /* layout_width */, LinearLayout.LayoutParams.WRAP_CONTENT /* layout_height */, 1f /* layout_weight */);
+
+
+
+
+        for(int i=1; i<20; i++){
+            mReference.child(String.valueOf(i)).child("ingredient").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.getValue(String.class)!=null){
+                        String value = dataSnapshot.getValue(String.class);
+                        Log.e(this.getClass().getName(), value.toString());
+                        TextView ingredient = new TextView(getApplicationContext());
+                        ingredient.setText(value.toString());
+                        ingredient.setLayoutParams(layoutParams);
+                        linearLayout.addView(ingredient);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
