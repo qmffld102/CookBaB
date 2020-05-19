@@ -38,7 +38,7 @@ public class IngredientDetail extends AppCompatActivity {
         storage= FirebaseStorage.getInstance("gs://cook-bab.appspot.com");
         mDatabase = FirebaseDatabase.getInstance();
         String uid="hUeiODcSXrSEe1MJ9stKIAbcpcv2";
-        mReference = mDatabase.getReference("user").child(uid).child("refrigerator").child("ingredient");
+        mReference = mDatabase.getReference().child("user").child(uid).child("refrigerator").child("ingredient");
 
         imageView = (ImageView)findViewById(R.id.imageView);
         savebtn = (Button)findViewById(R.id.savebtn);
