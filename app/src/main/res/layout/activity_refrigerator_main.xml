@@ -9,7 +9,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="376dp">
+        android:layout_height="715dp">
 
         <LinearLayout
             android:id="@+id/linearlayout"
@@ -25,4 +25,5 @@
 
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

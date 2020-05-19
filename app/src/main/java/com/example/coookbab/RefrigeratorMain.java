@@ -30,7 +30,6 @@ public class RefrigeratorMain extends AppCompatActivity {
     private DatabaseReference mReference;
     private FirebaseStorage storage;
     private LinearLayout linearLayout;
-    private LinearLayout linearLayoutn;
     private ImageView plusimage;
 
     @Override
@@ -57,8 +56,7 @@ public class RefrigeratorMain extends AppCompatActivity {
                         .load(storageplus)
                         .into(plusimage);
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
-                    IngredientData temp = messageData.getValue(IngredientData.class);
-                    final String filename=String.valueOf(temp.getIngredientid());
+                    final String filename =messageData.child("ingredientid").getValue().toString();
 
                     ImageView imageView = new ImageView(getApplicationContext());
                     StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".JPG");
