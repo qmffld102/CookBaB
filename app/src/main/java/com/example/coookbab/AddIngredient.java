@@ -33,6 +33,7 @@ public class AddIngredient extends AppCompatActivity {
     private Button savebtn;
     private Button canclebtn;
     private String number;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class AddIngredient extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 number= String.valueOf(ingredient.getId());
+                                name =String.valueOf(ingredient.getText());
                             }
                         });
                     }
@@ -86,8 +88,8 @@ public class AddIngredient extends AppCompatActivity {
                 Intent intent = new Intent(AddIngredient.this, RefrigeratorMain.class);
                 String num=editnum.getText().toString();
                 String life=editlife.getText().toString();
-                mReference.child("num").child(number).push().setValue(num);//어떤 재료인지 설정해야됨
-                mReference.child("life").child(number).setValue(life);
+                mReference.child(name).child("num").child(number).push().setValue(editnum.getText().toString());//어떤 재료인지 설정해야됨
+                mReference.child(name).child("life").child(number).push().setValue(editlife.getText().toString());
                 startActivity(intent);
             }
         });
