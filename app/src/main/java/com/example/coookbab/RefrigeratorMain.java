@@ -45,19 +45,17 @@ public class RefrigeratorMain extends AppCompatActivity {
         mReference = mDatabase.getReference("user").child(uid).child("refrigerator");
         storage=FirebaseStorage.getInstance("gs://cook-bab.appspot.com");
         final StorageReference storageplus = storage.getReference().child("ingredient_photo").child("plus.jpg");
-
+        Glide.with(RefrigeratorMain.this)
+                .using(new FirebaseImageLoader())
+                .load(storageplus)
+                .into(plusimage);
         mReference.child("ingredient").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //linearLayout.removeAllViews();
-
-                Glide.with(RefrigeratorMain.this)
-                        .using(new FirebaseImageLoader())
-                        .load(storageplus)
-                        .into(plusimage);
+                linearLayout.removeAllViews();
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
                     final String filename =messageData.child("ingredientid").getValue().toString();
-
+                    //@@@@@@@@
                     ImageView imageView = new ImageView(getApplicationContext());
                     StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".JPG");
                     Glide.with(RefrigeratorMain.this)

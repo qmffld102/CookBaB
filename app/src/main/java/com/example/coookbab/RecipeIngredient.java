@@ -68,7 +68,7 @@ public class RecipeIngredient extends AppCompatActivity {
                         }
                     });
 
-                    myrefrigerator.addValueEventListener(new ValueEventListener() {
+                    myrefrigerator.addValueEventListener(new ValueEventListener() {//냉장고에 재료 없을 때 해결하기
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dts) {
                             String ihave = dts.child("ingredient").child(ingredientid).child("num").getValue().toString();
