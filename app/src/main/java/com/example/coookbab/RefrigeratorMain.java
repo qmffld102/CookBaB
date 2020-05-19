@@ -45,7 +45,7 @@ public class RefrigeratorMain extends AppCompatActivity {
         imageViewn = (ImageView)findViewById(R.id.imageViewn);
 
         mDatabase = FirebaseDatabase.getInstance();
-        String uid="hUeiODcSXrSEe1MJ9stKIAbcpcv2";
+        final String uid="hUeiODcSXrSEe1MJ9stKIAbcpcv2";
         mReference = mDatabase.getReference("user").child("uid").child("refrigerator");
         storage=FirebaseStorage.getInstance("gs://cook-bab.appspot.com");
         final StorageReference storageplus = storage.getReference().child("ingredient_photo").child("plus.jpg");
@@ -113,6 +113,7 @@ public class RefrigeratorMain extends AppCompatActivity {
                         public void onClick(View v) {
                             Intent intent=new Intent(RefrigeratorMain.this,IngredientDetail.class);
                             intent.putExtra("filename",filename);
+                            intent.putExtra("Uid", uid);
                             startActivity(intent);
                         }
                     });

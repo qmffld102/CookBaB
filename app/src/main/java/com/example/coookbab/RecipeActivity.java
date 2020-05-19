@@ -24,6 +24,7 @@ public class RecipeActivity extends AppCompatActivity {
     private Button btn_youtube, btn_cook;
     private DatabaseReference rDatabase;
     private String str;
+    int i=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,16 @@ public class RecipeActivity extends AppCompatActivity {
                 str=dataSnapshot.child("howto").getValue().toString();
                 tv_recipe.setText("\n"+str);
                 str=dataSnapshot.child("link").getValue().toString();
+                final String i=dataSnapshot.child("need").getValue().toString();
+                tv_ingredient.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), RecipeIngredient.class);
+                        intent.putExtra("recipe_num", String.valueOf(recipe_num));
+                        intent.putExtra("i", i);
+                        startActivity(intent);
+                    }
+                });
                 btn_youtube.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
