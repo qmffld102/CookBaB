@@ -130,6 +130,18 @@ public class RefrigeratorMain extends AppCompatActivity {
            @Override
            public void onClick(View v) {
                Intent intent = new Intent(RefrigeratorMain.this, AddIngredient.class);
+               String nengjang="nengjang";
+               intent.putExtra("where", nengjang);
+               startActivity(intent);
+           }
+       });
+       imageViewn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+               Intent intent = new Intent(RefrigeratorMain.this, AddIngredient.class);
+               String nengdong="nengdong";
+               intent.putExtra("where", nengdong);
                startActivity(intent);
            }
        });

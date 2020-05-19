@@ -45,9 +45,12 @@ public class AddIngredient extends AppCompatActivity {
         editnum =(EditText)findViewById(R.id.editnum);
         savebtn =(Button)findViewById(R.id.savebtn);
         canclebtn =(Button)findViewById(R.id.canclebtn);
-
+        final String Uid="hUeiODcSXrSEe1MJ9stKlAbcpcv2";
         mDatabase = FirebaseDatabase.getInstance();
-        mReference=mDatabase.getReference("user").child("refrigerator").child("ingredient");
+        Intent intent =getIntent();
+        final String where =intent.getExtras().getString("where");
+
+        mReference=mDatabase.getReference("user").child(Uid).child("refrigerator").child(where).child("ingredient");
         DatabaseReference spaceRef = mDatabase.getReference("how_to_sore");
 
         linearLayout.removeAllViews();
@@ -86,10 +89,10 @@ public class AddIngredient extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddIngredient.this, RefrigeratorMain.class);
-                String num=editnum.getText().toString();
-                String life=editlife.getText().toString();
-                mReference.child(name).child("num").child(number).push().setValue(editnum.getText().toString());//어떤 재료인지 설정해야됨
-                mReference.child(name).child("life").child(number).push().setValue(editlife.getText().toString());
+                mReference.push().child(name);
+                mReference.child(name).child("ingredientid").setValue(number);
+                mReference.child(name).child("num").setValue(editnum.getText().toString());
+                mReference.child(name).child("life").setValue(editlife.getText().toString());
                 startActivity(intent);
             }
         });
