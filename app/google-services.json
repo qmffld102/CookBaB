@@ -52,6 +52,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "649352313600-asfksj5cp1epqimtv2kknn9cbv3h9uvs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.coookbab",
+            "certificate_hash": "440fbf1a57839f3bee3126fe231e0cbd79231730"
+          }
+        },
+        {
           "client_id": "649352313600-bg624trml3nu0dg31k4qnach602guhl1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.coookbab.MainActivity;
 import com.example.coookbab.R;
 import com.example.coookbab.RecipeActivity;
 
@@ -56,7 +57,7 @@ public class MyAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     private void openDetailActivity(String title, String desc){
-        Intent intent = new Intent(context, RecipeActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("desc", desc);
         context.startActivity(intent);
