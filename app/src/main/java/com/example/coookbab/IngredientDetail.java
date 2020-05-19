@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -24,11 +25,13 @@ public class IngredientDetail extends AppCompatActivity {
     private DatabaseReference mReference;
     private FirebaseDatabase mDatabase;
     private FirebaseStorage storage;
+    private DatabaseReference mTip;
     private ImageView imageView;
     private Button savebtn;
     private Button delbtn;
     private EditText ingredientnum;
     private EditText ingredientlife;
+    private TextView tip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +40,29 @@ public class IngredientDetail extends AppCompatActivity {
 
         storage= FirebaseStorage.getInstance("gs://cook-bab.appspot.com");
         mDatabase = FirebaseDatabase.getInstance();
-        String uid="hUeiODcSXrSEe1MJ9stKIAbcpcv2";
+        String uid="hUeiODcSXrSEe1MJ9stKlAbcpcv2";
         mReference = mDatabase.getReference().child("user").child(uid).child("refrigerator").child("ingredient");
-
+        mTip =mDatabase.getReference().child("how_to_sore");
+        tip=(TextView)findViewById(R.id.tip);
         imageView = (ImageView)findViewById(R.id.imageView);
         savebtn = (Button)findViewById(R.id.savebtn);
         delbtn = (Button)findViewById(R.id.delbtn);
-        ingredientlife =(EditText)findViewById(R.id.ingredientlife);
-        ingredientnum = (EditText)findViewById(R.id.ingredientnum);
+        ingredientlife =(EditText)findViewById(R.id.inglife);
+        ingredientnum = (EditText)findViewById(R.id.ingnum);
 
 
         Intent intent = getIntent();
         final String filename =intent.getExtras().getString("filename");
+        mTip.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String text = dataSnapshot.child(filename).child("tip").getValue().toString();
+                tip.setText(text);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
