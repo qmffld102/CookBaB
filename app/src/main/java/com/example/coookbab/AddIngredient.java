@@ -61,14 +61,13 @@ public class AddIngredient extends AppCompatActivity {
                 for(final DataSnapshot foodData : dataSnapshot.getChildren()){
                     String food = foodData.child("ingredient").getValue().toString();
                     Log.e(this.getClass().getName(), food);
-                    final TextView tv_food = new TextView(getApplicationContext());
+                    final CheckBox tv_food = new CheckBox(getApplicationContext());
                     tv_food.setTextSize(25);
                     tv_food.setText(food.toString());
                     tv_food.setLayoutParams(layoutParams);
                     tv_food.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            tv_food.setBackgroundColor(Color.RED);
                             name = tv_food.getText().toString();
                             number= String.valueOf(foodData.getKey());
                         }
