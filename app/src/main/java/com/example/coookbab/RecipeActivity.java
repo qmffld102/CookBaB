@@ -53,6 +53,7 @@ public class RecipeActivity extends AppCompatActivity {
                 str=dataSnapshot.child("howto").getValue().toString();
                 tv_recipe.setText("\n"+str);
                 str=dataSnapshot.child("link").getValue().toString();
+                final Uri uri =Uri.parse(str);
                 final String i=dataSnapshot.child("need").getValue().toString();
                 tv_ingredient.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -66,7 +67,7 @@ public class RecipeActivity extends AppCompatActivity {
                 btn_youtube.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(str.toString()));
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                         startActivity(intent);
                     }
                 });
