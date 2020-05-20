@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,25 +31,21 @@ public class RefrigeratorMain extends AppCompatActivity {
     private DatabaseReference mReference;
     private FirebaseStorage storage;
     private LinearLayout linearLayout;
-    private ImageView plusimage;
+    private Button plusimage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refrigerator_main);
 
-        plusimage =(ImageView)findViewById(R.id.imageView);
+        plusimage =(Button) findViewById(R.id.plusimage);
         linearLayout=(LinearLayout)findViewById(R.id.linearlayout);
 
         mDatabase = FirebaseDatabase.getInstance();
         final String uid="hUeiODcSXrSEe1MJ9stKlAbcpcv2";
         mReference = mDatabase.getReference().child("user").child(uid).child("refrigerator").child("ingredient");
         storage=FirebaseStorage.getInstance("gs://cook-bab.appspot.com");
-        final StorageReference storageplus = storage.getReference().child("ingredient_photo").child("plus.jpg");
-        Glide.with(RefrigeratorMain.this)
-                .using(new FirebaseImageLoader())
-                .load(storageplus)
-                .into(plusimage);
+
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
