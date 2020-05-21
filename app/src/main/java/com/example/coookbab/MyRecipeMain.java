@@ -145,10 +145,9 @@ public class MyRecipeMain extends AppCompatActivity {
                                            rcplinearlayout.addView(tv_recipe);
                                        }
                                        else {
-                                           int many= 1;
-                                           many=Integer.parseInt(dts.child("1").child("need").getValue().toString());
+                                           int many=Integer.parseInt(dts.child(rtnum).child("need").getValue().toString());
                                            for(int i=1;i<=many;i++) {
-                                               String ingname = dts.child("1").child("ingredients").child("howto").child(String.valueOf(i)).child("name").getValue().toString();
+                                               String ingname = dts.child(rtnum).child("ingredients").child("howto").child(String.valueOf(i)).child("name").getValue().toString();
                                                if(search.equals(ingname)){
                                                    tv_recipe.setText(name);
                                                    tv_recipe.setTextSize(30);
