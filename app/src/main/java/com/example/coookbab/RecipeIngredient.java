@@ -67,14 +67,17 @@ public class RecipeIngredient extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError dtE) {
                         }
                     });
-
                     myrefrigerator.addValueEventListener(new ValueEventListener() {//냉장고에 재료 없을 때 해결하기
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dts) {
+                            String ingname = name.getText().toString();
+                            int suc=0;
+                            for (DataSnapshot messageData : dts.getChildren()){
+                                if(ingname.equals(messageData.child("ingredientid").getValue().toString())){ suc=1; }
+                            }
                             String ihave = dts.child("ingredient").child(ingredientid).child("num").getValue().toString();
-                            Log.e("###", ihave);
-                            if(ihave== "null") { have.setText("0"); }//내 냉장고에 이 재료가 없다면 ihave는 뭘로 나오지??->돌아가지 않는다.
-                            else{have.setText(ihave); }
+                            if(suc == 0) { have.setText("0"); }
+                            else have.setText(ihave);
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError dtE) {
