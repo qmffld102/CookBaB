@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -32,6 +33,7 @@ public class RefrigeratorMain extends AppCompatActivity {
     private FirebaseStorage storage;
     private LinearLayout linearLayout;
     private Button plusimage;
+    private LinearLayout littlelinearlayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +52,10 @@ public class RefrigeratorMain extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 linearLayout.removeAllViews();
+                int i=0;
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
                     final String filename =messageData.child("ingredientid").getValue().toString();
-                    Log.e("##", "##");
+                    Log.e("##", filename);
 
                     ImageView imageView = new ImageView(getApplicationContext());
                     StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".JPG");
@@ -69,7 +72,17 @@ public class RefrigeratorMain extends AppCompatActivity {
                         }
                     });
                     imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-                    linearLayout.addView(imageView);
+                    //윗줄이 들어오는 사진 크긴데 저거 좀 조절해주라,,ㅎ 한 줄ㅇ 5개씩 들어가게 만들긴 했어
+                    if(i%5==0){
+                        littlelinearlayout = new LinearLayout(getApplicationContext());
+                        littlelinearlayout.setOrientation(LinearLayout.HORIZONTAL);
+                        linearLayout.addView(littlelinearlayout);
+                        littlelinearlayout.addView(imageView);
+                    }
+                    else{
+                        littlelinearlayout.addView(imageView);
+                    }
+                    i++;
                 }
             }
 
