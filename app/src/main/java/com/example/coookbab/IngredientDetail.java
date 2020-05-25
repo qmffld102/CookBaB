@@ -93,8 +93,8 @@ public class IngredientDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(IngredientDetail.this, RefrigeratorMain.class);
-                mReference.child(filename).child("num").push().setValue(ingredientnum.getText());
-                mReference.child(filename).child("life").push().setValue(ingredientlife.getText());
+                mReference.child(filename).child("num").setValue(ingredientnum.getText().toString());
+                mReference.child(filename).child("life").setValue(ingredientlife.getText().toString());
                 startActivity(intent1);
             }
         });

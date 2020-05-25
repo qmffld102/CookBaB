@@ -67,7 +67,7 @@ public class RecipeIngredient extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError dtE) {
                         }
                     });
-                    myrefrigerator.addValueEventListener(new ValueEventListener() {//냉장고에 재료 없을 때 해결하기
+                    myrefrigerator.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dts) {
                             String ingname = name.getText().toString();
