@@ -86,7 +86,7 @@ public class AddIngredient extends AppCompatActivity {
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddIngredient.this, RefrigeratorMain.class);
+                Intent intent = new Intent(AddIngredient.this, MainActivity.class);
                 addDatabase.push().child(number);
                 addDatabase.child(number).child("name").setValue(name);
                 addDatabase.child(number).child("ingredientid").setValue(number);
@@ -99,7 +99,7 @@ public class AddIngredient extends AppCompatActivity {
         canclebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddIngredient.this, RefrigeratorMain.class);
+                Intent intent = new Intent(AddIngredient.this, MainActivity.class);
                 startActivity(intent);
             }
         });
