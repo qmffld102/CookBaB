@@ -4,7 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".AddIngredient">
+
+
+    <Button
+        android:id="@+id/savebtn"
+        android:layout_width="68dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="12dp"
+        android:text="저장"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/canclebtn"
+        android:layout_width="63dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
+        android:layout_marginBottom="8dp"
+        android:text="취소"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/savebtn" />
 
     <EditText
         android:id="@+id/editnum"
@@ -55,28 +79,6 @@
         android:text="아래와 같이유통기한을 입력해주세요"
         app:layout_constraintBottom_toTopOf="@+id/editlife"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/savebtn"
-        android:layout_width="68dp"
-        android:layout_height="47dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginBottom="12dp"
-        android:text="저장"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/canclebtn"
-        android:layout_width="63dp"
-        android:layout_height="51dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginRight="52dp"
-        android:layout_marginBottom="8dp"
-        android:text="취소"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/savebtn" />
 
     <ScrollView
         android:layout_width="160dp"

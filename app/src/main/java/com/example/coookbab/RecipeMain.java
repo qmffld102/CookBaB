@@ -2,8 +2,10 @@ package com.example.coookbab;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +51,7 @@ public class RecipeMain extends AppCompatActivity {
                     String rt = recipeData.child("title").getValue().toString();
                     Log.e(this.getClass().getName(), rt);
                     TextView tv_recipe = new TextView(getApplicationContext());
+
                     tv_recipe.setTextSize(30);
                     tv_recipe.setHeight(200);
                     tv_recipe.setText(rt.toString());

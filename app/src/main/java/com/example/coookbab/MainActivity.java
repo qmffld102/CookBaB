@@ -47,7 +47,6 @@ public class MainActivity extends TabActivity {
         tabHost.addTab(spec);
 
         tabHost.setCurrentTab(0);
-
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int screenHeight = metrics.heightPixels;
@@ -55,5 +54,6 @@ public class MainActivity extends TabActivity {
         tabHost.getTabWidget().getChildAt(0).getLayoutParams().height = (screenHeight * 15) / 200;
         tabHost.getTabWidget().getChildAt(1).getLayoutParams().height = (screenHeight * 15) / 200;
         tabHost.getTabWidget().getChildAt(2).getLayoutParams().height = (screenHeight * 15) / 200;
+
     }
 }

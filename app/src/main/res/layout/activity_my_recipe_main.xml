@@ -16,19 +16,28 @@
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/namum"
             android:layout_weight="5"
+            android:background="@drawable/round"
             android:ems="10"
             android:inputType="textPersonName"
-            android:selectAllOnFocus="true"
-            android:text="검색"
-            android:textSize="25dp" />
+            android:text=" 검색"
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_weight="1"
-            android:text="검색" />
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="4dp"
+            android:layout_gravity="center"
+            android:background="@drawable/search" />
+
     </LinearLayout>
 
     <LinearLayout

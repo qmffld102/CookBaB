@@ -24,6 +24,7 @@
                 android:layout_marginLeft="15dp"
                 android:ems="10"
                 android:hint="e-mail"
+                android:background="@drawable/round"
                 android:inputType="textEmailAddress"/>
 
             <EditText
@@ -34,6 +35,7 @@
                 android:layout_marginLeft="15dp"
                 android:ems="10"
                 android:hint="password"
+                android:background="@drawable/round"
                 android:inputType="textPassword"/>
         </LinearLayout>
 
@@ -43,7 +45,7 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="로그인" />
+            android:text="LOGIN" />
 
         <Button
             android:id="@+id/btn_newid"
@@ -51,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="회원가입" />
+            android:text="REGISTER" />
 
     </LinearLayout>
 </LinearLayout>

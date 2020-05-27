@@ -5,23 +5,56 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".RecipeActivity">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40dp"
+        android:fontFamily="@font/namum"
         android:gravity="center"
-        android:text="레시피 제목" />
+        android:layout_marginTop="5dp"
+        android:text="레시피 제목"
+        android:textSize="40dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/notebook_img"
+            android:layout_width="match_parent"
+            android:layout_height="297dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/notebook" />
+
+        <TextView
+            android:id="@+id/tv_ingredient"
+            android:layout_width="331dp"
+            android:layout_height="310dp"
+            android:layout_alignLeft="@id/notebook_img"
+            android:layout_alignTop="@id/notebook_img"
+            android:layout_alignRight="@id/notebook_img"
+            android:layout_alignBottom="@id/notebook_img"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:fontFamily="@font/namum"
+            android:text="레시피 재료"
+            android:textSize="25dp" />
+
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_ingredient"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:textSize="25dp"
-        android:background="@color/colorAccent"
-        android:text="레시피 재료" />
+        android:layout_height="wrap_content"
+        android:text="레시피"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/namum"
+        android:textSize="25dp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,35 +64,46 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_recipe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="레시피 순서"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+
+                android:fontFamily="@font/namum"
                 android:textSize="25dp" />
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+
         <Button
             android:id="@+id/btn_youtube"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="100dp"
             android:layout_weight="1"
-            android:text="관련 영상" />
+            android:background="@drawable/youtube" />
 
         <Button
             android:id="@+id/btn_cook"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="90dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/btn_youtube"
+
             android:layout_weight="1"
-            android:text="요리 시작!" />
-    </LinearLayout>
+            android:background="@drawable/cook" />
+    </RelativeLayout>
 
 </LinearLayout>

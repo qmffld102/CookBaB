@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context=".IngredientDetail">
 
     <ImageView
@@ -23,14 +24,17 @@
             android:layout_width="88dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/namum"
+            android:gravity="center"
             android:text="보유량" />
 
         <EditText
             android:id="@+id/ingnum"
             android:layout_width="228dp"
-            android:layout_height="wrap_content"
+            android:layout_height="33dp"
             android:layout_weight="1"
             android:ems="10"
+            android:fontFamily="@font/namum"
             android:inputType="textPersonName"
             android:text="Name" />
 
@@ -39,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/namum"
             android:text="g/개" />
     </LinearLayout>
 
@@ -49,17 +54,21 @@
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="wrap_content"
+            android:layout_width="16dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/namum"
+            android:gravity="center"
             android:text="유통기한" />
 
         <EditText
             android:id="@+id/inglife"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="1"
+
             android:ems="10"
+            android:fontFamily="@font/namum"
             android:inputType="textPersonName"
             android:text="20200101" />
     </LinearLayout>
@@ -68,6 +77,9 @@
         android:id="@+id/tip"
         android:layout_width="match_parent"
         android:layout_height="231dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:fontFamily="@font/namum"
         android:text="TextView" />
 
     <LinearLayout
@@ -77,16 +89,20 @@
 
         <Button
             android:id="@+id/delbtn"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="74dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/namum"
             android:text="삭제" />
 
         <Button
             android:id="@+id/savebtn"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/namum"
             android:text="저장" />
     </LinearLayout>
 
