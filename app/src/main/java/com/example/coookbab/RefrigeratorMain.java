@@ -160,6 +160,8 @@ public class RefrigeratorMain extends AppCompatActivity {
 
                                if(filename.equals(igname)) {
                                    ImageView imageView = new ImageView(getApplicationContext());
+                                   //imageView.setMaxWidth(30);
+                                   //imageView.setMaxHeight(30);
                                    StorageReference storageRef = storage.getReference().child("ingredient_photo/" + filename + ".JPG");
                                    Glide.with(RefrigeratorMain.this)
                                            .using(new FirebaseImageLoader())

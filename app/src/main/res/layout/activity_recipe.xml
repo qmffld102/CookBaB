@@ -8,15 +8,27 @@
     android:background="@color/colorPrimary"
     tools:context=".RecipeActivity">
 
-    <TextView
-        android:id="@+id/tv_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/namum"
-        android:gravity="center"
-        android:layout_marginTop="5dp"
-        android:text="레시피 제목"
-        android:textSize="40dp" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_myrecipe"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/my_recipe_off" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/namum"
+            android:gravity="center"
+            android:text="레시피 제목"
+            android:textSize="40dp" />
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,21 +41,28 @@
             android:scaleType="fitXY"
             android:src="@drawable/notebook" />
 
-        <TextView
-            android:id="@+id/tv_ingredient"
-            android:layout_width="331dp"
-            android:layout_height="310dp"
-            android:layout_alignLeft="@id/notebook_img"
-            android:layout_alignTop="@id/notebook_img"
-            android:layout_alignRight="@id/notebook_img"
-            android:layout_alignBottom="@id/notebook_img"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginRight="35dp"
-            android:layout_marginLeft="35dp"
-            android:fontFamily="@font/namum"
-            android:text="레시피 재료"
-            android:textSize="25dp" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_ingredient"
+                    android:layout_width="331dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginBottom="30dp"
+                    android:fontFamily="@font/namum"
+                    android:text="레시피 재료"
+                    android:textSize="25dp" />
+            </LinearLayout>
+        </ScrollView>
 
     </RelativeLayout>
 

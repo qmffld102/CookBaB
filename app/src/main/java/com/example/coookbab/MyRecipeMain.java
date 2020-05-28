@@ -63,7 +63,7 @@ public class MyRecipeMain extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
-                            intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
+                            intent.putExtra("recipe_num", Integer.parseInt(recipeData.getValue().toString()));
                             startActivity(intent);
                         }
                     });
@@ -104,7 +104,7 @@ public class MyRecipeMain extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
-                                        intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
+                                        intent.putExtra("recipe_num", Integer.parseInt(recipeData.getValue().toString()));
                                         startActivity(intent);
                                     }
                                 });
@@ -138,7 +138,7 @@ public class MyRecipeMain extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(View v) {
                                                     Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
-                                                    intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
+                                                    intent.putExtra("recipe_num", Integer.parseInt(recipeData.getValue().toString()));
                                                     startActivity(intent);
                                                 }
                                             });

@@ -10,7 +10,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,10 +24,11 @@ import com.google.firebase.database.ValueEventListener;
 public class RecipeActivity extends AppCompatActivity {
 
     private TextView tv_title, tv_ingredient, tv_recipe;
-    private Button btn_youtube, btn_cook;
+    private Button btn_youtube, btn_cook, btn_myrecipe;
     private DatabaseReference rDatabase;
     private String str;
     int i=0;
+    private int my_recipe_tf=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,7 @@ public class RecipeActivity extends AppCompatActivity {
         tv_recipe = findViewById(R.id.tv_recipe);
         btn_youtube=findViewById(R.id.btn_youtube);
         btn_cook = findViewById(R.id.btn_cook);
+        btn_myrecipe = findViewById(R.id.btn_myrecipe);
 
         rDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -88,5 +93,62 @@ public class RecipeActivity extends AppCompatActivity {
 
             }
         });
+        rDatabase.child("user").child("hUeiODcSXrSEe1MJ9stKlAbcpcv2").child("myrecipe").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(final DataSnapshot myData : dataSnapshot.getChildren()){
+                    String myNum = myData.getValue().toString();
+                    if(Integer.parseInt(myNum) == recipe_num){
+                        my_recipe_tf=1;
+                        btn_myrecipe.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.my_recipe_on));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        btn_myrecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(my_recipe_tf==0){
+                    btn_myrecipe.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.my_recipe_on));
+                    my_recipe_tf=1;
+                    rDatabase.child("user").child("hUeiODcSXrSEe1MJ9stKlAbcpcv2").child("myrecipe").push().setValue(String.valueOf(recipe_num))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
+                }
+                else if(my_recipe_tf==1){
+                    btn_myrecipe.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.my_recipe_off));
+                    my_recipe_tf=0;
+                    rDatabase.child("user").child("hUeiODcSXrSEe1MJ9stKlAbcpcv2").child("myrecipe").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(final DataSnapshot myData : dataSnapshot.getChildren()){
+                                String myNum = myData.getValue().toString();
+                                if(Integer.parseInt(myNum) == recipe_num){
+                                    myData.getRef().removeValue();
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        });
+
     }
 }
