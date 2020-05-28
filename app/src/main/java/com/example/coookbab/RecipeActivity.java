@@ -61,6 +61,7 @@ public class RecipeActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), RecipeIngredient.class);
                         intent.putExtra("recipe_num", String.valueOf(recipe_num));
                         intent.putExtra("i", i);
+                        intent.putExtra("photo_num", Integer.parseInt(str));
                         startActivity(intent);
                     }
                 });

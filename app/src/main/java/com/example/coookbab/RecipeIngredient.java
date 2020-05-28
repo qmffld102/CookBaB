@@ -34,15 +34,19 @@ public class RecipeIngredient extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_ingredient);
         final Intent intent=getIntent();
-        String recipe_num=intent.getExtras().getString("recipe_num");
+        final String recipe_num=intent.getExtras().getString("recipe_num");
         String recipe_need=intent.getExtras().getString("i");
+        final String str = intent.getExtras().getString("photo_num");
         final int rcpneed= Integer.parseInt(recipe_need);
         String uid="hUeiODcSXrSEe1MJ9stKlAbcpcv2";
+
+        final String[] []Array = new String[3][100];
+        final int cnt=0;
 
         startcook = (Button)findViewById(R.id.startcook);
         linearLayout=(LinearLayout)findViewById(R.id.linearlayout);
         mDatabase = FirebaseDatabase.getInstance();
-        mReference = mDatabase.getReference().child("recipe").child(recipe_num).child("ingredients").child("howto");
+        mReference = mDatabase.getReference().child("recipe").child(recipe_num).child("ingredients");
         myrefrigerator = mDatabase.getReference().child("user").child(uid).child("refrigerator");
         store = mDatabase.getReference().child("how_to_sore");
         mReference.addValueEventListener(new ValueEventListener() {
@@ -50,7 +54,8 @@ public class RecipeIngredient extends AppCompatActivity {
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                 for(int i=1;i<=rcpneed;i++){
                     final String ingredientid = dataSnapshot.child(String.valueOf(i)).child("ingredientid").getValue().toString();
-                    String need = dataSnapshot.child(String.valueOf(i)).child("need").getValue().toString();
+                    Log.e("## ", ingredientid);
+                    final String need = dataSnapshot.child(String.valueOf(i)).child("need").getValue().toString();
                     final Button marketbtn = new Button(getApplicationContext());
                     TextView textView = new TextView(getApplicationContext());
                     final TextView have = new TextView(getApplicationContext());
@@ -66,17 +71,23 @@ public class RecipeIngredient extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError dtE) {
                         }
                     });
-                    myrefrigerator.addValueEventListener(new ValueEventListener() {
+                    myrefrigerator.child("ingredient").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dts) {
                             String ingname = name.getText().toString();
                             int suc=0;
                             for (DataSnapshot messageData : dts.getChildren()){
-                                if(ingname.equals(messageData.child("ingredientid").getValue().toString())){ suc=1; }
+                                Log.e("#", messageData.child("name").getValue().toString());//승희야 이거 도와줘 이거 하나씩 가자고 오고 싶은데 다 가져오네
+                                //if(ingname.equals(messageData.child("name").getValue().toString())){ suc=1; }
                             }
-                            String ihave = dts.child("ingredient").child(ingredientid).child("num").getValue().toString();
                             if(suc == 0) { have.setText("0"); }
-                            else have.setText(ihave);
+                            else {
+                                String ihave = dts.child(ingredientid).child("num").getValue().toString();
+                                have.setText(ihave);
+                                Array[0][cnt]=ihave;
+                                Array[1][cnt]=ingredientid;
+                                Array[2][cnt]=need;
+                            }
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError dtE) {
@@ -102,6 +113,30 @@ public class RecipeIngredient extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        startcook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myrefrigerator.child("ingredient").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(int i=0;i<=cnt;i++){
+                            int A= Integer.parseInt(Array[0][i]);
+                            int b=Integer.parseInt(Array[2][i]);
+                            A-=b;
+                            String w = String.valueOf(A);
+                            myrefrigerator.child("ingredient").child(Array[1][i]).child("num").setValue(w);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+                Intent intent = new Intent(getApplicationContext(), CookActivity.class);
+                intent.putExtra("recipe_num", recipe_num);
+                intent.putExtra("photo_num", Integer.parseInt(str));
+                startActivity(intent);
             }
         });
     }

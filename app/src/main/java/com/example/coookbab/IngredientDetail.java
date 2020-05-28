@@ -74,7 +74,7 @@ public class IngredientDetail extends AppCompatActivity {
             }
         });
 
-        StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".JPG");
+        StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".png");
         Glide.with(IngredientDetail.this)
                 .using(new FirebaseImageLoader())
                 .load(storageRef)
