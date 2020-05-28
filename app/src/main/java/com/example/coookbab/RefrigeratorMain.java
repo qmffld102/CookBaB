@@ -105,47 +105,94 @@ public class RefrigeratorMain extends AppCompatActivity {
        search.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               final String igname = search.getText().toString();
-               mReference.addValueEventListener(new ValueEventListener() {
-                   @Override
-                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                       linearLayout.removeAllViews();
-                       int i=0;
-                       for(DataSnapshot dts : dataSnapshot.getChildren()){
-                           final String filename =dts.child("ingredientid").getValue().toString();
-                            if(filename.equals(igname)) {
-                                ImageView imageView = new ImageView(getApplicationContext());
-                                StorageReference storageRef = storage.getReference().child("ingredient_photo/" + filename + ".JPG");
-                                Glide.with(RefrigeratorMain.this)
-                                        .using(new FirebaseImageLoader())
-                                        .load(storageRef)
-                                        .into(imageView);
-                                imageView.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Intent intent = new Intent(RefrigeratorMain.this, IngredientDetail.class);
-                                        intent.putExtra("filename", filename);
-                                        startActivity(intent);
-                                    }
-                                });
-                                imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                                //윗줄이 들어오는 사진 크긴데 저거 좀 조절해주라,,ㅎ 한 줄ㅇ 5개씩 들어가게 만들긴 했어
-                                if (i % 5 == 0) {
-                                    littlelinearlayout = new LinearLayout(getApplicationContext());
-                                    littlelinearlayout.setOrientation(LinearLayout.HORIZONTAL);
-                                    linearLayout.addView(littlelinearlayout);
-                                    littlelinearlayout.addView(imageView);
-                                } else {
-                                    littlelinearlayout.addView(imageView);
-                                }
-                                i++;
-                            }
+               final String igname=search.getText().toString();
+               if(igname.length()==0){
+                   mReference.addValueEventListener(new ValueEventListener() {
+                       @Override
+                       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                           linearLayout.removeAllViews();
+                           int i=0;
+                           for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                               final String filename =messageData.child("ingredientid").getValue().toString();
+
+                               ImageView imageView = new ImageView(getApplicationContext());
+                               StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".JPG");
+                               Glide.with(RefrigeratorMain.this)
+                                       .using(new FirebaseImageLoader())
+                                       .load(storageRef)
+                                       .into(imageView);
+                               imageView.setOnClickListener(new View.OnClickListener() {
+                                   @Override
+                                   public void onClick(View v) {
+                                       Intent intent=new Intent(RefrigeratorMain.this,IngredientDetail.class);
+                                       intent.putExtra("filename",filename);
+                                       startActivity(intent);
+                                   }
+                               });
+                               imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+                               //윗줄이 들어오는 사진 크긴데 저거 좀 조절해주라,,ㅎ 한 줄ㅇ 5개씩 들어가게 만들긴 했어
+                               if(i%5==0){
+                                   littlelinearlayout = new LinearLayout(getApplicationContext());
+                                   littlelinearlayout.setOrientation(LinearLayout.HORIZONTAL);
+                                   linearLayout.addView(littlelinearlayout);
+                                   littlelinearlayout.addView(imageView);
+                               }
+                               else{
+                                   littlelinearlayout.addView(imageView);
+                               }
+                               i++;
+                           }
                        }
-                   }
-                   @Override
-                   public void onCancelled(@NonNull DatabaseError databaseError) {
-                   }
-               });
+                       @Override
+                       public void onCancelled(@NonNull DatabaseError databaseError) {
+                       }
+                   });
+               }
+               else{
+                   mReference.addValueEventListener(new ValueEventListener() {
+                       @Override
+                       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                           linearLayout.removeAllViews();
+                           int i=0;
+                           for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                               final String filename =messageData.child("ingredientid").getValue().toString();
+                               Log.e("##", filename);
+
+                               if(filename.equals(igname)) {
+                                   ImageView imageView = new ImageView(getApplicationContext());
+                                   StorageReference storageRef = storage.getReference().child("ingredient_photo/" + filename + ".JPG");
+                                   Glide.with(RefrigeratorMain.this)
+                                           .using(new FirebaseImageLoader())
+                                           .load(storageRef)
+                                           .into(imageView);
+                                   imageView.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                           Intent intent = new Intent(RefrigeratorMain.this, IngredientDetail.class);
+                                           intent.putExtra("filename", filename);
+                                           startActivity(intent);
+                                       }
+                                   });
+                                   imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                                   //윗줄이 들어오는 사진 크긴데 저거 좀 조절해주라,,ㅎ 한 줄ㅇ 5개씩 들어가게 만들긴 했어
+                                   if (i % 5 == 0) {
+                                       littlelinearlayout = new LinearLayout(getApplicationContext());
+                                       littlelinearlayout.setOrientation(LinearLayout.HORIZONTAL);
+                                       linearLayout.addView(littlelinearlayout);
+                                       littlelinearlayout.addView(imageView);
+                                   } else {
+                                       littlelinearlayout.addView(imageView);
+                                   }
+                                   i++;
+                               }
+                           }
+                       }
+
+                       @Override
+                       public void onCancelled(@NonNull DatabaseError databaseError) {
+                       }
+                   });
+               }
            }
        });
     }
