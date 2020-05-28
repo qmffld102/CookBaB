@@ -49,7 +49,6 @@ public class RecipeMain extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(final DataSnapshot recipeData : dataSnapshot.getChildren()){
                     String rt = recipeData.child("title").getValue().toString();
-                    Log.e(this.getClass().getName(), rt);
                     TextView tv_recipe = new TextView(getApplicationContext());
 
                     tv_recipe.setTextSize(30);

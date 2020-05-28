@@ -21,69 +21,76 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.ref.Reference;
-
 public class RecipeIngredient extends AppCompatActivity {
     private LinearLayout linearLayout;
+    private DatabaseReference mReference;
     private DatabaseReference myrefrigerator;
-    private DatabaseReference RiReference;
+    private DatabaseReference store;
     private FirebaseDatabase mDatabase;
-    private String ingredientid;
-    private int [] table = new int[500];
+    private Button startcook;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_ingredient);
         final Intent intent=getIntent();
-        String recipe_num=intent.getExtras().getString("recipe_num");//레시피 번호
+        String recipe_num=intent.getExtras().getString("recipe_num");
         String recipe_need=intent.getExtras().getString("i");
-        final int rcpneed= Integer.parseInt(recipe_need);//총 몇개의 재료
+        final int rcpneed= Integer.parseInt(recipe_need);
         String uid="hUeiODcSXrSEe1MJ9stKlAbcpcv2";
 
+        startcook = (Button)findViewById(R.id.startcook);
         linearLayout=(LinearLayout)findViewById(R.id.linearlayout);
         mDatabase = FirebaseDatabase.getInstance();
-        myrefrigerator = mDatabase.getReference().child("user").child(uid).child("refrigerator").child("ingredient");
-        myrefrigerator.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot igdSnapshot : dataSnapshot.getChildren()){
-                    String igd_id  = igdSnapshot.child("ingredientid").getValue().toString();
-                    String igd_num = igdSnapshot.child("num").getValue().toString();
-                    table[Integer.parseInt(igd_id)] = Integer.parseInt(igd_num);
-                    Log.e(this.getClass().getName(), "table["+igd_id+"]="+table[Integer.parseInt(igd_id)]);
-                    Log.e(this.getClass().getName(), igd_id + "의 개수는 "+igd_num);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError dtE) {
-            }
-        });
-        RiReference = mDatabase.getReference().child("recipe").child(recipe_num).child("ingredients");
-        RiReference.addValueEventListener(new ValueEventListener() {
+        mReference = mDatabase.getReference().child("recipe").child(recipe_num).child("ingredients").child("howto");
+        myrefrigerator = mDatabase.getReference().child("user").child(uid).child("refrigerator");
+        store = mDatabase.getReference().child("how_to_sore");
+        mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-
                 for(int i=1;i<=rcpneed;i++){
-                    ingredientid = dataSnapshot.child(String.valueOf(i)).child("ingredientid").getValue().toString();
-                    String ingredientname=dataSnapshot.child(String.valueOf(i)).child("name").getValue().toString();
+                    final String ingredientid = dataSnapshot.child(String.valueOf(i)).child("ingredientid").getValue().toString();
                     String need = dataSnapshot.child(String.valueOf(i)).child("need").getValue().toString();
                     final Button marketbtn = new Button(getApplicationContext());
                     TextView textView = new TextView(getApplicationContext());
                     final TextView have = new TextView(getApplicationContext());
                     final TextView name = new TextView(getApplicationContext());
 
+                    store.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dts) {
+                            String ingname = dts.child(ingredientid).child("ingredient").getValue().toString();
+                            name.setText(ingname);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError dtE) {
+                        }
+                    });
+                    myrefrigerator.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dts) {
+                            String ingname = name.getText().toString();
+                            int suc=0;
+                            for (DataSnapshot messageData : dts.getChildren()){
+                                if(ingname.equals(messageData.child("ingredientid").getValue().toString())){ suc=1; }
+                            }
+                            String ihave = dts.child("ingredient").child(ingredientid).child("num").getValue().toString();
+                            if(suc == 0) { have.setText("0"); }
+                            else have.setText(ihave);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError dtE) {
+                        }
+                    });
+
                     LinearLayout littlelinearlayout=new LinearLayout(getApplicationContext());
                     linearLayout.addView(littlelinearlayout);
 
-
-                    textView.setText("/"+need);
-                    have.setText(String.valueOf(table[Integer.parseInt(ingredientid)]));
-                    Log.e(this.getClass().getName(), "table["+ingredientid+"]="+table[Integer.parseInt(ingredientid)]);
-                    name.setText(ingredientname.toString());
+                    textView.setText(need);
                     littlelinearlayout.setOrientation(LinearLayout.HORIZONTAL);
                     littlelinearlayout.addView(name);
-                    littlelinearlayout.addView(have);
                     littlelinearlayout.addView(textView);
+                    littlelinearlayout.addView(have);
                     littlelinearlayout.addView(marketbtn);
                     marketbtn.setOnClickListener(new View.OnClickListener() {
                         @Override

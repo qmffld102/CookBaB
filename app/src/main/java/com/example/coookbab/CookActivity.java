@@ -11,6 +11,8 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +24,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class CookActivity extends AppCompatActivity implements SensorEventListener {
-
+    Button btn_timer;
     private SensorManager sensorManager;
     TextView tv_proximity;
     int i=1;
@@ -55,7 +57,16 @@ public class CookActivity extends AppCompatActivity implements SensorEventListen
             tv_proximity.setText("근접센서가 없어 모션 전환을 사용할 수 없습니다.");
         }
     }
+    public void mOnClick(View v){
+        Intent intent=new Intent();
+        switch (v.getId()) {
+            case R.id.btn_timer:
+                Intent intent_timer=new Intent(CookActivity.this, Timer.class);
+                startActivity(intent_timer);
+                break;
+        }
 
+    }
     @Override
     protected void onResume(){
         super.onResume();
