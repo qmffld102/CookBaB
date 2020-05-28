@@ -51,7 +51,6 @@ public class RecipeIngredient extends AppCompatActivity {
                 for(int i=1;i<=rcpneed;i++){
                     final String ingredientid = dataSnapshot.child(String.valueOf(i)).child("ingredientid").getValue().toString();
                     String need = dataSnapshot.child(String.valueOf(i)).child("need").getValue().toString();
-
                     final Button marketbtn = new Button(getApplicationContext());
                     TextView textView = new TextView(getApplicationContext());
                     final TextView have = new TextView(getApplicationContext());
