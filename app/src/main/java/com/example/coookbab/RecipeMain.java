@@ -130,8 +130,9 @@ public class RecipeMain extends AppCompatActivity {
                                 }
                                 else {
                                     int many = Integer.parseInt(recipeData.child("need").getValue().toString());
+                                    Log.e("##", String.valueOf(many));
                                     for (int i = 1; i <= many; i++) {
-                                        String ingname = recipeData.child("ingredients").child("howto").child(String.valueOf(i)).child("name").getValue().toString();
+                                        String ingname = recipeData.child("ingredients").child(String.valueOf(i)).child("name").getValue().toString();
                                         if (search.equals(ingname)) {
                                             TextView tv_recipe = new TextView(getApplicationContext());
                                             tv_recipe.setText(name);
