@@ -42,7 +42,7 @@ public class RecipeIngredient extends AppCompatActivity {
         startcook = (Button)findViewById(R.id.startcook);
         linearLayout=(LinearLayout)findViewById(R.id.linearlayout);
         mDatabase = FirebaseDatabase.getInstance();
-        mReference = mDatabase.getReference().child("recipe").child(recipe_num).child("ingredients").child("howto");
+        mReference = mDatabase.getReference().child("recipe").child(recipe_num).child("ingredients");
         myrefrigerator = mDatabase.getReference().child("user").child(uid).child("refrigerator");
         store = mDatabase.getReference().child("how_to_sore");
         mReference.addValueEventListener(new ValueEventListener() {

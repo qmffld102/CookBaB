@@ -63,7 +63,7 @@ public class RefrigeratorMain extends AppCompatActivity {
                     Log.e("##", filename);
 
                     ImageView imageView = new ImageView(getApplicationContext());
-                    StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".JPG");
+                    StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".png");
                     Glide.with(RefrigeratorMain.this)
                             .using(new FirebaseImageLoader())
                             .load(storageRef)
@@ -116,7 +116,7 @@ public class RefrigeratorMain extends AppCompatActivity {
                                final String filename =messageData.child("ingredientid").getValue().toString();
 
                                ImageView imageView = new ImageView(getApplicationContext());
-                               StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".JPG");
+                               StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".png");
                                Glide.with(RefrigeratorMain.this)
                                        .using(new FirebaseImageLoader())
                                        .load(storageRef)
@@ -160,7 +160,7 @@ public class RefrigeratorMain extends AppCompatActivity {
 
                                if(filename.equals(igname)) {
                                    ImageView imageView = new ImageView(getApplicationContext());
-                                   StorageReference storageRef = storage.getReference().child("ingredient_photo/" + filename + ".JPG");
+                                   StorageReference storageRef = storage.getReference().child("ingredient_photo/" + filename + ".png");
                                    Glide.with(RefrigeratorMain.this)
                                            .using(new FirebaseImageLoader())
                                            .load(storageRef)
