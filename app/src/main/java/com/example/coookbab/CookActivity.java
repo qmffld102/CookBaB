@@ -38,6 +38,8 @@ public class CookActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook);
 
+        btn_timer=(Button)findViewById(R.id.btn_timer);
+
         tv_proximity = (TextView)findViewById(R.id.tv_proximity);
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         iv_cook=findViewById(R.id.iv_cook);
