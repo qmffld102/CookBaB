@@ -83,65 +83,55 @@ public class RecipeMain extends AppCompatActivity {
             public void onClick(View v) {
                 final String search = editText.getText().toString();
                 if(search.length()==0){
-                    RcpListDatabase.child("recipe").addValueEventListener(new ValueEventListener() {
+                    RcpListDatabase.child("user").child(userUrl).child("myrecipe").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             rcplinearlayout.removeAllViews();
                             for(final DataSnapshot recipeData : dataSnapshot.getChildren()){
-                                String rt = recipeData.child("title").getValue().toString();
-                                Log.e(this.getClass().getName(), rt);
-                                TextView tv_recipe = new TextView(getApplicationContext());
+                                final String rtnum = recipeData.getValue().toString();
+                                final TextView tv_recipe = new TextView(getApplicationContext());
+                                rcpRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        tv_recipe.setText(dataSnapshot.child(rtnum).child("title").getValue().toString());
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    }
+                                });
                                 tv_recipe.setTextSize(30);
                                 tv_recipe.setHeight(200);
-                                tv_recipe.setText(rt);
                                 tv_recipe.setLayoutParams(layoutParams);
                                 tv_recipe.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
-                                        intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
+                                        intent.putExtra("recipe_num", Integer.parseInt(recipeData.getValue().toString()));
                                         startActivity(intent);
                                     }
                                 });
                                 rcplinearlayout.addView(tv_recipe);
                             }
                         }
+
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
                     });
                 }
-                else{
-                    RcpListDatabase.child("recipe").addValueEventListener(new ValueEventListener() {
+                else {
+                    RcpListDatabase.child("user").child(userUrl).child("myrecipe").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             rcplinearlayout.removeAllViews();
                             for (final DataSnapshot recipeData : dataSnapshot.getChildren()) {
-                                String name = recipeData.child("title").getValue().toString();
-                                String rtnum = recipeData.getValue().toString();
-                                if (name.contains(search)) {
-                                    TextView tv_recipe = new TextView(getApplicationContext());
-                                    tv_recipe.setText(name);
-                                    tv_recipe.setTextSize(30);
-                                    tv_recipe.setHeight(200);
-                                    tv_recipe.setLayoutParams(layoutParams);
-                                    tv_recipe.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
-                                            intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
-                                            startActivity(intent);
-                                        }
-                                    });
-                                    rcplinearlayout.addView(tv_recipe);
-                                }
-                                else {
-                                    int many = Integer.parseInt(recipeData.child("need").getValue().toString());
-                                    Log.e("##", String.valueOf(many));
-                                    for (int i = 1; i <= many; i++) {
-                                        String ingname = recipeData.child("ingredients").child(String.valueOf(i)).child("name").getValue().toString();
-                                        if (search.equals(ingname)) {
-                                            TextView tv_recipe = new TextView(getApplicationContext());
+                                final String rtnum = recipeData.getValue().toString();
+                                final TextView tv_recipe = new TextView(getApplicationContext());
+                                rcpRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dts) {
+                                        String name = dts.child(rtnum).child("title").getValue().toString();
+                                        if (name.contains(search)) {
                                             tv_recipe.setText(name);
                                             tv_recipe.setTextSize(30);
                                             tv_recipe.setHeight(200);
@@ -150,21 +140,47 @@ public class RecipeMain extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(View v) {
                                                     Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
-                                                    intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
+                                                    intent.putExtra("recipe_num", Integer.parseInt(recipeData.getValue().toString()));
                                                     startActivity(intent);
                                                 }
                                             });
                                             rcplinearlayout.addView(tv_recipe);
-                                            break;
+                                        } else {
+                                            int many = Integer.parseInt(dts.child(rtnum).child("need").getValue().toString());
+                                            for (int i = 1; i <= many; i++) {
+                                                String ingname = dts.child(rtnum).child("ingredients").child(String.valueOf(i)).child("name").getValue().toString();
+                                                if (search.equals(ingname)) {
+                                                    tv_recipe.setText(name);
+                                                    tv_recipe.setTextSize(30);
+                                                    tv_recipe.setHeight(200);
+                                                    tv_recipe.setLayoutParams(layoutParams);
+                                                    tv_recipe.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
+                                                            intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
+                                                            startActivity(intent);
+                                                        }
+                                                    });
+                                                    rcplinearlayout.addView(tv_recipe);
+                                                    break;
+                                                }
+                                            }
                                         }
                                     }
-                                }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    }
+                                });
                             }
                         }
+
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
                     });
+
                 }
             }
         });
