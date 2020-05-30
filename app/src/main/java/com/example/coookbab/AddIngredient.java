@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +30,8 @@ import java.sql.Ref;
 public class AddIngredient extends AppCompatActivity {
 
     private DatabaseReference addDatabase;
+    private FirebaseAuth mAuth;
+    private String userUrl="";
     private LinearLayout linearLayout;
     private EditText editnum;
     private EditText editlife;
@@ -47,7 +51,10 @@ public class AddIngredient extends AppCompatActivity {
         editnum =(EditText)findViewById(R.id.editnum);
         savebtn =(Button)findViewById(R.id.savebtn);
         canclebtn =(Button)findViewById(R.id.canclebtn);
-        final String Uid="hUeiODcSXrSEe1MJ9stKlAbcpcv2";
+
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        userUrl = user.getUid();
 
         addDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -81,7 +88,7 @@ public class AddIngredient extends AppCompatActivity {
 
             }
         });
-        addDatabase=FirebaseDatabase.getInstance().getReference("user").child(Uid.toString()).child("refrigerator").child("ingredient");
+        addDatabase=FirebaseDatabase.getInstance().getReference("user").child(userUrl.toString()).child("refrigerator").child("ingredient");
 
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -16,6 +16,8 @@ import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,12 +33,14 @@ import java.util.List;
 public class RefrigeratorMain extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
+    private FirebaseAuth mAuth;
     private FirebaseStorage storage;
     private LinearLayout linearLayout;
     private Button plusimage;
     private LinearLayout littlelinearlayout;
     private Button srhbtn;
     private EditText search;
+    private String userUrl="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +53,12 @@ public class RefrigeratorMain extends AppCompatActivity {
         search = (EditText)findViewById(R.id.search);
 
         mDatabase = FirebaseDatabase.getInstance();
-        final String uid="hUeiODcSXrSEe1MJ9stKlAbcpcv2";
-        mReference = mDatabase.getReference().child("user").child(uid).child("refrigerator").child("ingredient");
+
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        userUrl = user.getUid();
+
+        mReference = mDatabase.getReference().child("user").child(userUrl).child("refrigerator").child("ingredient");
         storage=FirebaseStorage.getInstance("gs://cook-bab.appspot.com");
 
         mReference.addValueEventListener(new ValueEventListener() {

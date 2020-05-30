@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +25,8 @@ import com.google.firebase.storage.StorageReference;
 
 public class IngredientDetail extends AppCompatActivity {
     private DatabaseReference mReference;
+    private FirebaseAuth mAuth;
+    private String userUrl="";
     private FirebaseDatabase mDatabase;
     private FirebaseStorage storage;
     private DatabaseReference mTip;
@@ -40,8 +44,10 @@ public class IngredientDetail extends AppCompatActivity {
 
         storage= FirebaseStorage.getInstance("gs://cook-bab.appspot.com");
         mDatabase = FirebaseDatabase.getInstance();
-        String uid="hUeiODcSXrSEe1MJ9stKlAbcpcv2";
-        mReference = mDatabase.getReference().child("user").child(uid).child("refrigerator").child("ingredient");
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        userUrl = user.getUid();
+        mReference = mDatabase.getReference().child("user").child(userUrl).child("refrigerator").child("ingredient");
         mTip =mDatabase.getReference().child("how_to_sore");
         tip=(TextView)findViewById(R.id.tip);
         imageView = (ImageView)findViewById(R.id.imageView);

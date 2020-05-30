@@ -19,9 +19,9 @@
         <activity android:name=".RecipeActivity" />
         <activity android:name=".MyRecipeMain" />
         <activity android:name=".RecipeMain" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".RefrigeratorMain" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

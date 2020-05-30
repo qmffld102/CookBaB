@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,10 +25,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class RecipeMain extends AppCompatActivity {
     private DatabaseReference RcpListDatabase;
+    private FirebaseAuth mAuth;
     private LinearLayout rcplinearlayout;
     private DatabaseReference rcpRef;
     private EditText editText;
     private Button button;
+    private String userUrl="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,10 @@ public class RecipeMain extends AppCompatActivity {
         rcplinearlayout = findViewById(R.id.rcplinearlayout);
         RcpListDatabase = FirebaseDatabase.getInstance().getReference();
         rcpRef = FirebaseDatabase.getInstance().getReference().child("recipe");
-        final String uid="hUeiODcSXrSEe1MJ9stKlAbcpcv2";
+
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        userUrl = user.getUid();
 
         rcplinearlayout.removeAllViews();
         final LinearLayout.LayoutParams layoutParams =

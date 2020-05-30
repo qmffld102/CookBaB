@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,9 +24,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MyRecipeMain extends AppCompatActivity {
     private DatabaseReference RcpListDatabase;
+    private FirebaseAuth mAuth;
     private DatabaseReference rcpRef;
     private LinearLayout rcplinearlayout;
     private EditText editText;
+    private String userUrl = "";
     private Button button;
 
     @Override
@@ -36,11 +40,15 @@ public class MyRecipeMain extends AppCompatActivity {
         rcplinearlayout = findViewById(R.id.myrcplinearlayout);
         RcpListDatabase = FirebaseDatabase.getInstance().getReference();
         rcpRef = FirebaseDatabase.getInstance().getReference().child("recipe");
-        final String uid="hUeiODcSXrSEe1MJ9stKlAbcpcv2";
+
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        userUrl = user.getUid();
+
         final LinearLayout.LayoutParams layoutParams =
                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        RcpListDatabase.child("user").child(uid).child("myrecipe").addValueEventListener(new ValueEventListener() {
+        RcpListDatabase.child("user").child(userUrl).child("myrecipe").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 rcplinearlayout.removeAllViews();
@@ -81,7 +89,7 @@ public class MyRecipeMain extends AppCompatActivity {
             public void onClick(View v) {
                 final String search = editText.getText().toString();
                 if(search.length()==0){
-                    RcpListDatabase.child("user").child(uid).child("myrecipe").addValueEventListener(new ValueEventListener() {
+                    RcpListDatabase.child("user").child(userUrl).child("myrecipe").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             rcplinearlayout.removeAllViews();
@@ -118,7 +126,7 @@ public class MyRecipeMain extends AppCompatActivity {
                     });
                 }
                 else {
-                    RcpListDatabase.child("user").child(uid).child("myrecipe").addValueEventListener(new ValueEventListener() {
+                    RcpListDatabase.child("user").child(userUrl).child("myrecipe").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             rcplinearlayout.removeAllViews();

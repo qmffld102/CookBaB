@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +27,8 @@ import java.lang.ref.Reference;
 
 public class RecipeIngredient extends AppCompatActivity {
     private LinearLayout linearLayout;
+    private FirebaseAuth mAuth;
+    private String userUrl="";
     private DatabaseReference myrefrigerator;
     private DatabaseReference RiReference;
     private FirebaseDatabase mDatabase;
@@ -38,11 +42,14 @@ public class RecipeIngredient extends AppCompatActivity {
         String recipe_num=intent.getExtras().getString("recipe_num");//레시피 번호
         String recipe_need=intent.getExtras().getString("i");
         final int rcpneed= Integer.parseInt(recipe_need);//총 몇개의 재료
-        String uid="hUeiODcSXrSEe1MJ9stKlAbcpcv2";
+
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        userUrl = user.getUid();
 
         linearLayout=(LinearLayout)findViewById(R.id.linearlayout);
         mDatabase = FirebaseDatabase.getInstance();
-        myrefrigerator = mDatabase.getReference().child("user").child(uid).child("refrigerator").child("ingredient");
+        myrefrigerator = mDatabase.getReference().child("user").child(userUrl).child("refrigerator").child("ingredient");
         myrefrigerator.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
