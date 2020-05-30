@@ -87,7 +87,7 @@ public class RefrigeratorMain extends AppCompatActivity {
                     });
                     imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
                     //윗줄이 들어오는 사진 크긴데 저거 좀 조절해주라,,ㅎ 한 줄ㅇ 5개씩 들어가게 만들긴 했어
-                    if(i%4==0){
+                    if(i%5==0){
                         littlelinearlayout = new LinearLayout(getApplicationContext());
                         littlelinearlayout.setOrientation(LinearLayout.HORIZONTAL);
                         linearLayout.addView(littlelinearlayout);
