@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -74,19 +75,33 @@ public class RecipeIngredient extends AppCompatActivity {
                     ingredientid = dataSnapshot.child(String.valueOf(i)).child("ingredientid").getValue().toString();
                     String ingredientname=dataSnapshot.child(String.valueOf(i)).child("name").getValue().toString();
                     String need = dataSnapshot.child(String.valueOf(i)).child("need").getValue().toString();
+
                     final Button marketbtn = new Button(getApplicationContext());
                     TextView textView = new TextView(getApplicationContext());
                     final TextView have = new TextView(getApplicationContext());
                     final TextView name = new TextView(getApplicationContext());
 
+
+
                     LinearLayout littlelinearlayout=new LinearLayout(getApplicationContext());
+
                     linearLayout.addView(littlelinearlayout);
 
+                    //디자인
+                    marketbtn.setBackgroundResource(R.drawable.cart);
+                    textView.setTextSize(10);
+                    have.setTextSize(10);
+                    name.setTextSize(10);
 
-                    textView.setText("/"+need);
+                   // LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) marketbtn.getLayoutParams();
+                   // params.width=600;
+                    //marketbtn.setLayoutParams(params);
+
+                    textView.setText(" / "+need);
                     have.setText(String.valueOf(table[Integer.parseInt(ingredientid)]));
                     Log.e(this.getClass().getName(), "table["+ingredientid+"]="+table[Integer.parseInt(ingredientid)]);
-                    name.setText(ingredientname.toString());
+                    name.setText(ingredientname.toString()+" ");
+
                     littlelinearlayout.setOrientation(LinearLayout.HORIZONTAL);
                     littlelinearlayout.addView(name);
                     littlelinearlayout.addView(have);

@@ -27,16 +27,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/namum"
+            android:background="@drawable/round"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="검색" />
 
         <Button
             android:id="@+id/srhbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="89dp"
+            android:layout_height="43dp"
+            android:layout_marginRight="7dp"
+
             android:layout_weight="1"
-            android:text="찾기" />
+            android:background="@drawable/search" />
     </LinearLayout>
 
     <ScrollView
