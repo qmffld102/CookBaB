@@ -40,7 +40,7 @@ public class CookActivity extends AppCompatActivity implements SensorEventListen
 
         btn_timer=(Button)findViewById(R.id.btn_timer);
 
-        tv_proximity = (TextView)findViewById(R.id.tv_proximity);
+        //tv_proximity = (TextView)findViewById(R.id.tv_proximity);
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         iv_cook=findViewById(R.id.iv_cook);
 
@@ -56,7 +56,7 @@ public class CookActivity extends AppCompatActivity implements SensorEventListen
 
         Sensor proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         if(proximitySensor==null){
-            tv_proximity.setText("근접센서가 없어 모션 전환을 사용할 수 없습니다.");
+            //tv_proximity.setText("근접센서가 없어 모션 전환을 사용할 수 없습니다.");
         }
     }
     public void mOnClick(View v){
@@ -95,9 +95,9 @@ public class CookActivity extends AppCompatActivity implements SensorEventListen
                         .load(cookstorage)
                         .into(iv_cook);
                 i++;
-                tv_proximity.setText(String.valueOf(sensorevent.values[0]));
+                //tv_proximity.setText(String.valueOf(sensorevent.values[0]));
             }else{
-                tv_proximity.setText(String.valueOf(sensorevent.values[0]));
+                //tv_proximity.setText(String.valueOf(sensorevent.values[0]));
             }
         }
     }
@@ -121,16 +121,16 @@ public class CookActivity extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         switch (accuracy){
             case SensorManager.SENSOR_STATUS_UNRELIABLE:
-                Toast.makeText(this, "UNRELIABLE", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "UNRELIABLE", Toast.LENGTH_SHORT).show();
                 break;
             case SensorManager.SENSOR_STATUS_ACCURACY_LOW:
-                Toast.makeText(this, "LOW", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "LOW", Toast.LENGTH_SHORT).show();
                 break;
             case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM:
-                Toast.makeText(this, "MEDIUM", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "MEDIUM", Toast.LENGTH_SHORT).show();
                 break;
             case SensorManager.SENSOR_STATUS_ACCURACY_HIGH:
-                Toast.makeText(this, "HIGH", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "HIGH", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
