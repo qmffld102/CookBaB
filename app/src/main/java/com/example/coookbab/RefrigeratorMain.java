@@ -129,6 +129,7 @@ public class RefrigeratorMain extends AppCompatActivity {
                                Glide.with(RefrigeratorMain.this)
                                        .using(new FirebaseImageLoader())
                                        .load(storageRef)
+                                       .override(200, 200)
                                        .into(imageView);
                                imageView.setOnClickListener(new View.OnClickListener() {
                                    @Override
@@ -173,6 +174,7 @@ public class RefrigeratorMain extends AppCompatActivity {
                                    Glide.with(RefrigeratorMain.this)
                                            .using(new FirebaseImageLoader())
                                            .load(storageRef)
+                                           .override(200, 200)
                                            .into(imageView);
                                    imageView.setOnClickListener(new View.OnClickListener() {
                                        @Override
