@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -83,12 +84,12 @@ public class RecipeMain extends AppCompatActivity {
             public void onClick(View v) {
                 final String search = editText.getText().toString();
                 if(search.length()==0){
-                    RcpListDatabase.child("user").child(userUrl).child("myrecipe").addValueEventListener(new ValueEventListener() {
+                    RcpListDatabase.child("recipe").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             rcplinearlayout.removeAllViews();
                             for(final DataSnapshot recipeData : dataSnapshot.getChildren()){
-                                final String rtnum = recipeData.getValue().toString();
+                                final String rtnum = recipeData.getKey();
                                 final TextView tv_recipe = new TextView(getApplicationContext());
                                 rcpRef.addValueEventListener(new ValueEventListener() {
                                     @Override
@@ -106,7 +107,7 @@ public class RecipeMain extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
-                                        intent.putExtra("recipe_num", Integer.parseInt(recipeData.getValue().toString()));
+                                        intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
                                         startActivity(intent);
                                     }
                                 });
@@ -120,12 +121,12 @@ public class RecipeMain extends AppCompatActivity {
                     });
                 }
                 else {
-                    RcpListDatabase.child("user").child(userUrl).child("myrecipe").addValueEventListener(new ValueEventListener() {
+                    RcpListDatabase.child("recipe").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             rcplinearlayout.removeAllViews();
                             for (final DataSnapshot recipeData : dataSnapshot.getChildren()) {
-                                final String rtnum = recipeData.getValue().toString();
+                                final String rtnum = recipeData.getKey().toString();
                                 final TextView tv_recipe = new TextView(getApplicationContext());
                                 rcpRef.addValueEventListener(new ValueEventListener() {
                                     @Override
@@ -140,7 +141,7 @@ public class RecipeMain extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(View v) {
                                                     Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
-                                                    intent.putExtra("recipe_num", Integer.parseInt(recipeData.getValue().toString()));
+                                                    intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
                                                     startActivity(intent);
                                                 }
                                             });
@@ -149,6 +150,7 @@ public class RecipeMain extends AppCompatActivity {
                                             int many = Integer.parseInt(dts.child(rtnum).child("need").getValue().toString());
                                             for (int i = 1; i <= many; i++) {
                                                 String ingname = dts.child(rtnum).child("ingredients").child(String.valueOf(i)).child("name").getValue().toString();
+                                                Log.e(this.getClass().getName(), rtnum+"/"+ingname);
                                                 if (search.equals(ingname)) {
                                                     tv_recipe.setText(name);
                                                     tv_recipe.setTextSize(30);
