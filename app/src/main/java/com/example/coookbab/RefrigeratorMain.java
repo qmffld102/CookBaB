@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -38,6 +40,7 @@ public class RefrigeratorMain extends AppCompatActivity {
     private LinearLayout linearLayout;
     private Button plusimage;
     private LinearLayout littlelinearlayout;
+    private LinearLayout inglayout;
     private Button srhbtn;
     private EditText search;
     private String userUrl="";
@@ -68,10 +71,15 @@ public class RefrigeratorMain extends AppCompatActivity {
                 int i=0;
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
                     final String filename =messageData.child("ingredientid").getValue().toString();
-                    Log.e("##", filename);
+                    final String ingname = messageData.child("name").getValue().toString();
+                    Log.e("##", ingname);
 
                     ImageView imageView = new ImageView(getApplicationContext());
                     StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".png");
+                    inglayout = new LinearLayout(getApplicationContext());
+                    inglayout.setOrientation(LinearLayout.VERTICAL);
+                    TextView ingn = new TextView(getApplicationContext());
+                    ingn.setText(ingname);
                     Glide.with(RefrigeratorMain.this)
                             .using(new FirebaseImageLoader())
                             .load(storageRef)
@@ -86,15 +94,18 @@ public class RefrigeratorMain extends AppCompatActivity {
                         }
                     });
                     imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-                    //윗줄이 들어오는 사진 크긴데 저거 좀 조절해주라,,ㅎ 한 줄ㅇ 5개씩 들어가게 만들긴 했어
                     if(i%5==0){
                         littlelinearlayout = new LinearLayout(getApplicationContext());
                         littlelinearlayout.setOrientation(LinearLayout.HORIZONTAL);
                         linearLayout.addView(littlelinearlayout);
-                        littlelinearlayout.addView(imageView);
+                        littlelinearlayout.addView(inglayout);
+                        inglayout.addView(imageView);
+                        inglayout.addView(ingn);
                     }
                     else{
-                        littlelinearlayout.addView(imageView);
+                        littlelinearlayout.addView(inglayout);
+                        inglayout.addView(imageView);
+                        inglayout.addView(ingn);
                     }
                     i++;
                 }
@@ -111,11 +122,12 @@ public class RefrigeratorMain extends AppCompatActivity {
                startActivity(intent);
            }
        });
-       search.setOnClickListener(new View.OnClickListener() {
+       srhbtn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+               Toast.makeText(RefrigeratorMain.this,"모든 재료를 보려면 0을 입력해 주세요",Toast.LENGTH_LONG).show();
                final String igname=search.getText().toString();
-               if(igname.length()==0){
+               if(igname.equals("0")){
                    mReference.addValueEventListener(new ValueEventListener() {
                        @Override
                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -123,6 +135,11 @@ public class RefrigeratorMain extends AppCompatActivity {
                            int i=0;
                            for (DataSnapshot messageData : dataSnapshot.getChildren()) {
                                final String filename =messageData.child("ingredientid").getValue().toString();
+                               final String ingname = messageData.child("name").getValue().toString();
+                               inglayout = new LinearLayout(getApplicationContext());
+                               inglayout.setOrientation(LinearLayout.VERTICAL);
+                               TextView ingn = new TextView(getApplicationContext());
+                               ingn.setText(ingname);
 
                                ImageView imageView = new ImageView(getApplicationContext());
                                StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".png");
@@ -140,15 +157,18 @@ public class RefrigeratorMain extends AppCompatActivity {
                                    }
                                });
                                imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-                               //윗줄이 들어오는 사진 크긴데 저거 좀 조절해주라,,ㅎ 한 줄ㅇ 5개씩 들어가게 만들긴 했어
                                if(i%5==0){
                                    littlelinearlayout = new LinearLayout(getApplicationContext());
                                    littlelinearlayout.setOrientation(LinearLayout.HORIZONTAL);
                                    linearLayout.addView(littlelinearlayout);
-                                   littlelinearlayout.addView(imageView);
+                                   littlelinearlayout.addView(inglayout);
+                                   inglayout.addView(imageView);
+                                   inglayout.addView(ingn);
                                }
                                else{
-                                   littlelinearlayout.addView(imageView);
+                                   littlelinearlayout.addView(inglayout);
+                                   inglayout.addView(imageView);
+                                   inglayout.addView(ingn);
                                }
                                i++;
                            }
@@ -166,7 +186,12 @@ public class RefrigeratorMain extends AppCompatActivity {
                            int i=0;
                            for (DataSnapshot messageData : dataSnapshot.getChildren()) {
                                final String filename =messageData.child("ingredientid").getValue().toString();
-                               Log.e("##", filename);
+                               final String ingname = messageData.child("name").getValue().toString();
+                               inglayout = new LinearLayout(getApplicationContext());
+                               inglayout.setOrientation(LinearLayout.VERTICAL);
+                               TextView ingn = new TextView(getApplicationContext());
+                               ingn.setText(ingname);
+
 
                                if(filename.equals(igname)) {
                                    ImageView imageView = new ImageView(getApplicationContext());
@@ -184,21 +209,22 @@ public class RefrigeratorMain extends AppCompatActivity {
                                            startActivity(intent);
                                        }
                                    });
-                                   imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                                   //윗줄이 들어오는 사진 크긴데 저거 좀 조절해주라,,ㅎ 한 줄ㅇ 5개씩 들어가게 만들긴 했어
-                                   if (i % 5 == 0) {
+                                   imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));                                   if (i % 5 == 0) {
                                        littlelinearlayout = new LinearLayout(getApplicationContext());
                                        littlelinearlayout.setOrientation(LinearLayout.HORIZONTAL);
                                        linearLayout.addView(littlelinearlayout);
-                                       littlelinearlayout.addView(imageView);
+                                       littlelinearlayout.addView(inglayout);
+                                       inglayout.addView(imageView);
+                                       inglayout.addView(ingn);
                                    } else {
-                                       littlelinearlayout.addView(imageView);
+                                       littlelinearlayout.addView(inglayout);
+                                       inglayout.addView(imageView);
+                                       inglayout.addView(ingn);
                                    }
                                    i++;
                                }
                            }
                        }
-
                        @Override
                        public void onCancelled(@NonNull DatabaseError databaseError) {
                        }
