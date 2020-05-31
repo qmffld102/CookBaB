@@ -83,7 +83,7 @@ public class RecipeIngredient extends AppCompatActivity {
                     linearLayout.addView(littlelinearlayout);
 
 
-                    textView.setText("/"+need);
+                    textView.setText("/"+need+"     ");
                     have.setText(String.valueOf(table[Integer.parseInt(ingredientid)]));
                     Log.e(this.getClass().getName(), "table["+ingredientid+"]="+table[Integer.parseInt(ingredientid)]);
                     name.setText(ingredientname.toString());
