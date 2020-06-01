@@ -7,6 +7,49 @@
     android:orientation="vertical"
     tools:context=".RecipeIngredient">
 
+    <RadioGroup
+        android:id="@+id/rdogroup_market"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+
+        <RadioButton
+            android:id="@+id/rdo_coupang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="쿠팡" />
+
+        <RadioButton
+            android:id="@+id/rdo_ssg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SSG" />
+
+        <RadioButton
+            android:id="@+id/rdo_timon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="티몬" />
+
+        <RadioButton
+            android:id="@+id/rdo_gs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GS몰" />
+
+        <RadioButton
+            android:id="@+id/rdo_emart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이마트몰" />
+
+        <RadioButton
+            android:id="@+id/rdo_kurly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="마켓컬리" />
+    </RadioGroup>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="625dp">
