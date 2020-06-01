@@ -5,54 +5,94 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context=".RecipeIngredient">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="39dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/round"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:fontFamily="@font/namum"
+            android:text="재료명 / 보유량 / 필요량"
+            android:textColor="@color/colortext"
+            android:textSize="20dp">
+
+        </TextView>
+
+    </LinearLayout>
     <RadioGroup
         android:id="@+id/rdogroup_market"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/namum"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/rdo_coupang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/namum"
+            android:layout_weight="1"
             android:text="쿠팡" />
 
         <RadioButton
             android:id="@+id/rdo_ssg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/namum"
+            android:layout_weight="1"
+
             android:text="SSG" />
 
         <RadioButton
             android:id="@+id/rdo_timon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/namum"
+            android:layout_weight="1"
+
             android:text="티몬" />
 
         <RadioButton
             android:id="@+id/rdo_gs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/namum"
+            android:layout_weight="1"
             android:text="GS몰" />
 
         <RadioButton
             android:id="@+id/rdo_emart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/namum"
+            android:layout_weight="1"
+
             android:text="이마트몰" />
 
         <RadioButton
             android:id="@+id/rdo_kurly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/namum"
+            android:layout_weight="1"
+
             android:text="마켓컬리" />
     </RadioGroup>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="625dp">
+        android:layout_height="558dp">
 
         <LinearLayout
             android:id="@+id/linearlayout"
@@ -65,6 +105,14 @@
         android:id="@+id/startcook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="요리시작!" />
+        android:background="@drawable/round"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:fontFamily="@font/namum"
+        android:textColor="@color/colortext"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="요리 시작!" />
 
 </LinearLayout>

@@ -97,6 +97,10 @@
             android:layout_width="74dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/round"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:fontFamily="@font/namum"
             android:text="삭제" />
 
@@ -106,6 +110,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/round"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:fontFamily="@font/namum"
             android:text="저장" />
     </LinearLayout>
