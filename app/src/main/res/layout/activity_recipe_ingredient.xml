@@ -5,16 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context=".RecipeIngredient">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="39dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/round"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:fontFamily="@font/namum"
+            android:text="재료명 / 보유량 / 필요량"
+            android:textColor="@color/colortext"
+            android:textSize="20dp">
+
+        </TextView>
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="625dp">
+        android:layout_height="606dp">
 
         <LinearLayout
             android:id="@+id/linearlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:orientation="vertical" />
     </ScrollView>
 
@@ -22,6 +46,14 @@
         android:id="@+id/startcook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="요리시작!" />
+        android:background="@drawable/round"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:fontFamily="@font/namum"
+        android:textColor="@color/colortext"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="요리 시작!" />
 
 </LinearLayout>
