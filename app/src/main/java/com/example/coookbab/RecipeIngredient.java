@@ -82,11 +82,12 @@ public class RecipeIngredient extends AppCompatActivity {
                 }
                 else if(checkedId==R.id.rdo_emart) {
                     result_market=5;
-                    packagename = "ckr.co.emart.emartmall";
+                    packagename = "kr.co.emart.emartmall";
                 }
                 else {
                     result_market=6;
-                    packagename = "com.dbs.kurly.m2";
+                    packagename = "com.dbs.kurly.m2&hl=ko";
+                    //packagename = "com.dbs.kurly.m2";
                 }
             }
         });
@@ -119,7 +120,7 @@ public class RecipeIngredient extends AppCompatActivity {
 
                 for(int i=1;i<=rcpneed;i++){
                     ingredientid = dataSnapshot.child(String.valueOf(i)).child("ingredientid").getValue().toString();
-                    String ingredientname=dataSnapshot.child(String.valueOf(i)).child("name").getValue().toString();
+                    final String ingredientname=dataSnapshot.child(String.valueOf(i)).child("name").getValue().toString();
                     String need = dataSnapshot.child(String.valueOf(i)).child("need").getValue().toString();
                     final Button marketbtn = new Button(getApplicationContext());
                     TextView textView = new TextView(getApplicationContext());
@@ -142,12 +143,40 @@ public class RecipeIngredient extends AppCompatActivity {
                     marketbtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            String url;
                             if (getPackageList(packagename)) {
-                                Intent intent_app = getPackageManager().getLaunchIntentForPackage(packagename);
-                                intent_app.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent_app);
+                                if(result_market==1){ //쿠팡
+                                    url = "https://m.coupang.com/nm/search?q="+ingredientname;
+                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(i);
+                                }
+                                else if(result_market==2){ //SSG
+                                    url = "http://www.ssg.com/search.ssg?target=all&query="+ingredientname;
+                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(i);
+                                }
+                                else if(result_market==3){ //티몬
+                                    url = "http://search.tmon.co.kr/search/?keyword="+ingredientname;
+                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(i);
+                                }
+                                else if(result_market==4){//gs샵
+                                    url = "https://with.gsshop.com/shop/search/main.gs?lseq=392814&tq="+ingredientname;
+                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(i);
+                                }
+                                else if(result_market==5){ //이마트몰
+                                    url="http://www.ssg.com/search.ssg?target=all&query="+ingredientname;
+                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(i);
+                                }
+                                else{ //마켓컬리
+                                    url="https://www.kurly.com/shop/goods/goods_search.php?searched=Y&sword="+ingredientname;
+                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(i);
+                                }
                             } else {
-                                String url = "market://details?id=" + packagename;
+                                url = "market://details?id=" + packagename;
                                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                                 startActivity(i);
                             }
