@@ -10,8 +10,8 @@
     <RadioGroup
         android:id="@+id/rdogroup_market"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/rdo_coupang"

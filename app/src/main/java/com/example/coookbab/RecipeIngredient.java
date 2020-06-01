@@ -142,8 +142,6 @@ public class RecipeIngredient extends AppCompatActivity {
                     marketbtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            //마켓으로 연결
-                            /*
                             if (getPackageList(packagename)) {
                                 Intent intent_app = getPackageManager().getLaunchIntentForPackage(packagename);
                                 intent_app.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -153,7 +151,6 @@ public class RecipeIngredient extends AppCompatActivity {
                                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                                 startActivity(i);
                             }
-                            */
                         }
                     });
                 }
