@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
@@ -17,6 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.lang.ref.Reference;
+import java.util.List;
 
 public class RecipeIngredient extends AppCompatActivity {
     private LinearLayout linearLayout;
@@ -38,6 +44,10 @@ public class RecipeIngredient extends AppCompatActivity {
     private DatabaseReference RiReference;
     private FirebaseDatabase mDatabase;
     private String ingredientid;
+    private RadioButton rdo_coupang, rdo_ssg, rdo_gs, rdo_emart, rdo_kulry, rdo_timon;
+    private RadioGroup rdogroup_market;
+    String packagename;
+    int result_market;
     private int [] table = new int[500];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +58,47 @@ public class RecipeIngredient extends AppCompatActivity {
         String recipe_need=intent.getExtras().getString("i");
         final int rcpneed= Integer.parseInt(recipe_need);//총 몇개의 재료
 
+        rdo_coupang=findViewById(R.id.rdo_coupang);
+        rdo_emart=findViewById(R.id.rdo_emart);
+        rdo_gs=findViewById(R.id.rdo_gs);
+        rdo_ssg=findViewById(R.id.rdo_ssg);
+        rdo_timon=findViewById(R.id.rdo_timon);
+        rdo_kulry=findViewById(R.id.rdo_kurly);
+        rdogroup_market=findViewById(R.id.rdogroup_market);
+
+        rdogroup_market.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId==R.id.rdo_coupang) {
+                    result_market=1;
+                    packagename="com.coupang.mobile";
+                }
+                else if(checkedId==R.id.rdo_ssg) {
+                    result_market = 2;
+                    packagename="kr.co.ssg";
+                }
+                else if(checkedId==R.id.rdo_timon) {
+                    result_market = 3;
+                    packagename = "com.tmon";
+                }
+                else if(checkedId==R.id.rdo_gs) {
+                    result_market=4;
+                    packagename = "com.gsretail.android.smapp";
+                }
+                else if(checkedId==R.id.rdo_emart) {
+                    result_market=5;
+                    packagename = "ckr.co.emart.emartmall";
+                }
+                else {
+                    result_market=6;
+                    packagename = "com.dbs.kurly.m2";
+                }
+            }
+        });
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
         userUrl = user.getUid();
-
+//test
         linearLayout=(LinearLayout)findViewById(R.id.linearlayout);
         mDatabase = FirebaseDatabase.getInstance();
         myrefrigerator = mDatabase.getReference().child("user").child(userUrl).child("refrigerator").child("ingredient");
@@ -122,7 +169,15 @@ public class RecipeIngredient extends AppCompatActivity {
                     marketbtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            //마켓으로 연결
+                            if (getPackageList(packagename)) {
+                                Intent intent_app = getPackageManager().getLaunchIntentForPackage(packagename);
+                                intent_app.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent_app);
+                            } else {
+                                String url = "market://details?id=" + packagename;
+                                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                startActivity(i);
+                            }
                         }
                     });
                 }
@@ -131,5 +186,29 @@ public class RecipeIngredient extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
     }
+    public boolean getPackageList(String appname) {
+        boolean isExist = false;
+
+        PackageManager pkgMgr = getPackageManager();
+        List<ResolveInfo> mApps;
+        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        mApps = pkgMgr.queryIntentActivities(mainIntent, 0);
+
+        try {
+            for (int i = 0; i < mApps.size(); i++) {
+                if(mApps.get(i).activityInfo.packageName.startsWith(appname)){
+                    isExist = true;
+                    break;
+                }
+            }
+        }
+        catch (Exception e) {
+            isExist = false;
+        }
+        return isExist;
+    }
+
 }
