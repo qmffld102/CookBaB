@@ -44,7 +44,8 @@ public class RefrigeratorMain extends AppCompatActivity {
     private Button srhbtn;
     private EditText search;
     private String userUrl="";
-
+    private String filename;
+    private String ingname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,10 +71,14 @@ public class RefrigeratorMain extends AppCompatActivity {
                 linearLayout.removeAllViews();
                 int i=0;
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
-                    final String filename =messageData.child("ingredientid").getValue().toString();
-                    final String ingname = messageData.child("name").getValue().toString();
-                    Log.e("##", ingname);
-
+                    if(messageData.child("ingredientid").getValue(String.class)!=null){
+                        filename =messageData.child("ingredientid").getValue().toString();
+                    }else{
+                    }
+                    if(messageData.child("name").getValue(String.class)!=null){
+                        ingname = messageData.child("name").getValue().toString();
+                    }else{
+                    }
                     ImageView imageView = new ImageView(getApplicationContext());
                     StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".png");
                     inglayout = new LinearLayout(getApplicationContext());

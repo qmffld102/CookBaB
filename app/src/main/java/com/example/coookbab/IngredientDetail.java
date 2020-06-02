@@ -59,11 +59,15 @@ public class IngredientDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String filename =intent.getExtras().getString("filename");
-        mTip.addValueEventListener(new ValueEventListener() {
+        mTip.child(filename).child("tip").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String text = dataSnapshot.child(filename).child("tip").getValue().toString();
-                tip.setText(text);
+                if(dataSnapshot.getValue(String.class)!=null){
+                    String value = dataSnapshot.getValue(String.class);
+                    tip.setText(value);
+                }
+                else{
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -72,8 +76,14 @@ public class IngredientDetail extends AppCompatActivity {
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ingredientnum.setText(dataSnapshot.child(filename).child("num").getValue().toString());
-                ingredientlife.setText(dataSnapshot.child(filename).child("life").getValue().toString());
+                if(dataSnapshot.child(filename).child("num").getValue(String.class)!=null){
+                    ingredientnum.setText(dataSnapshot.child(filename).child("num").getValue().toString());
+                }else{
+                }
+                if(dataSnapshot.child(filename).child("life").getValue(String.class)!=null){
+                    ingredientlife.setText(dataSnapshot.child(filename).child("life").getValue().toString());
+                }else{
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -89,7 +99,7 @@ public class IngredientDetail extends AppCompatActivity {
         delbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(IngredientDetail.this, RefrigeratorMain.class);
+                Intent intent1 = new Intent(IngredientDetail.this, MainActivity.class);
                 mReference.child(filename).removeValue();
                 startActivity(intent1);
             }
@@ -98,7 +108,7 @@ public class IngredientDetail extends AppCompatActivity {
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(IngredientDetail.this, RefrigeratorMain.class);
+                Intent intent1 = new Intent(IngredientDetail.this, MainActivity.class);
                 mReference.child(filename).child("num").setValue(ingredientnum.getText().toString());
                 mReference.child(filename).child("life").setValue(ingredientlife.getText().toString());
                 startActivity(intent1);
