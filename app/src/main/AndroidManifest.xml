@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FirstAuthActivity"></activity>
+        <activity android:name=".LoginActivity"/>
         <activity android:name=".Timer" />
         <activity android:name=".RecipeIngredient" />
         <activity android:name=".CookActivity" />
@@ -22,7 +22,7 @@
         <activity android:name=".RecipeMain" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RefrigeratorMain" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".FirstAuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
