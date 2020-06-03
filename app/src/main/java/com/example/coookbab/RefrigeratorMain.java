@@ -198,8 +198,7 @@ public class RefrigeratorMain extends AppCompatActivity {
                                TextView ingn = new TextView(getApplicationContext());
                                ingn.setText(ingname);
 
-
-                               if(filename.equals(igname)) {
+                               if(ingname.equals(igname)) {
                                    ImageView imageView = new ImageView(getApplicationContext());
                                    StorageReference storageRef = storage.getReference().child("ingredient_photo/" + filename + ".png");
                                    Glide.with(RefrigeratorMain.this)

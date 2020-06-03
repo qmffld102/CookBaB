@@ -22,11 +22,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class RecipeMain extends AppCompatActivity {
     private DatabaseReference RcpListDatabase;
     private FirebaseAuth mAuth;
     private LinearLayout rcplinearlayout;
+    private FirebaseStorage storage;
     private DatabaseReference rcpRef;
     private EditText editText;
     private Button button;
@@ -42,6 +45,8 @@ public class RecipeMain extends AppCompatActivity {
         rcplinearlayout = findViewById(R.id.rcplinearlayout);
         RcpListDatabase = FirebaseDatabase.getInstance().getReference();
         rcpRef = FirebaseDatabase.getInstance().getReference().child("recipe");
+        storage=FirebaseStorage.getInstance("gs://cook-bab.appspot.com");
+        StorageReference storageRef = storage.getReference().child("ingredient_photo");
 
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();

@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_LONG).show();
+                            SavedSharedPrefrence.setUserName(LoginActivity.this, et_email.getText().toString());
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                         }else{
@@ -102,6 +103,5 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                     }
                 });
-
     }
 }
