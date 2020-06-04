@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 public class RecipeActivity extends AppCompatActivity {
@@ -30,6 +35,7 @@ public class RecipeActivity extends AppCompatActivity {
     private Button btn_youtube, btn_cook, btn_myrecipe;
     private DatabaseReference rDatabase;
     private String str;
+    private ImageView cook_image;
     int i=0;
     private int my_recipe_tf=0;
     @Override
@@ -42,6 +48,7 @@ public class RecipeActivity extends AppCompatActivity {
         final int recipe_num = intent.getExtras().getInt("recipe_num");
         Log.e(this.getClass().getName(), String.valueOf(recipe_num));
 
+        cook_image = findViewById(R.id.cook_image);
         tv_title = findViewById(R.id.tv_title);
         tv_ingredient=findViewById(R.id.tv_ingredient);
         tv_recipe = findViewById(R.id.tv_recipe);
@@ -56,6 +63,13 @@ public class RecipeActivity extends AppCompatActivity {
         rDatabase.child("recipe").child(String.valueOf(recipe_num)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FirebaseStorage storage = FirebaseStorage.getInstance("gs://cook-bab.appspot.com/");
+                StorageReference storageRef = storage.getReference();
+                StorageReference recipeRef = storageRef.child("recipe_photo").child(String.valueOf(recipe_num)+".jpg");
+                Glide.with(getApplicationContext())
+                        .using(new FirebaseImageLoader())
+                        .load(recipeRef)
+                        .into(cook_image);
                 str = dataSnapshot.child("title").getValue().toString();
                 tv_title.setText(str);
                 str=dataSnapshot.child("ingredients").child("text").getValue().toString();
