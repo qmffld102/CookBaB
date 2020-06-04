@@ -62,7 +62,7 @@ public class AddIngredient extends AppCompatActivity {
         final LinearLayout.LayoutParams layoutParams =
                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT /* layout_width */, LinearLayout.LayoutParams.WRAP_CONTENT /* layout_height */, 1f /* layout_weight */);
 
-        addDatabase.child("how_to_sore").addValueEventListener(new ValueEventListener() {
+        addDatabase.child("how_to_sore").orderByChild("ingredient").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(final DataSnapshot foodData : dataSnapshot.getChildren()){
@@ -93,7 +93,7 @@ public class AddIngredient extends AppCompatActivity {
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(AddIngredient.this, MainActivity.class);
                 addDatabase.push().child(number);
                 addDatabase.child(number).child("name").setValue(name);
                 addDatabase.child(number).child("ingredientid").setValue(number);
@@ -106,7 +106,7 @@ public class AddIngredient extends AppCompatActivity {
         canclebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(AddIngredient.this, MainActivity.class);
                 startActivity(intent);
             }
         });
