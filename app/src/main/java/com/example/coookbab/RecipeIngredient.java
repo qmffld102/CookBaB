@@ -62,7 +62,6 @@ public class RecipeIngredient extends AppCompatActivity {
         rdo_emart=findViewById(R.id.rdo_emart);
         rdo_gs=findViewById(R.id.rdo_gs);
         rdo_ssg=findViewById(R.id.rdo_ssg);
-        rdo_timon=findViewById(R.id.rdo_timon);
         rdo_kulry=findViewById(R.id.rdo_kurly);
         rdogroup_market=findViewById(R.id.rdogroup_market);
 
@@ -76,10 +75,6 @@ public class RecipeIngredient extends AppCompatActivity {
                 else if(checkedId==R.id.rdo_ssg) {
                     result_market = 2;
                     packagename="kr.co.ssg";
-                }
-                else if(checkedId==R.id.rdo_timon) {
-                    result_market = 3;
-                    packagename = "com.tmon";
                 }
                 else if(checkedId==R.id.rdo_gs) {
                     result_market=4;
@@ -179,11 +174,6 @@ public class RecipeIngredient extends AppCompatActivity {
                                 }
                                 else if(result_market==2){ //SSG
                                     url = "http://www.ssg.com/search.ssg?target=all&query="+ingredientname;
-                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                                    startActivity(i);
-                                }
-                                else if(result_market==3){ //티몬
-                                    url = "http://search.tmon.co.kr/search/?keyword="+ingredientname;
                                     Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                                     startActivity(i);
                                 }
