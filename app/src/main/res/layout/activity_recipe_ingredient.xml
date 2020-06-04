@@ -55,14 +55,6 @@
 
             android:text="SSG" />
 
-        <RadioButton
-            android:id="@+id/rdo_timon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/namum"
-
-            android:text="티몬" />
 
         <RadioButton
             android:id="@+id/rdo_gs"
