@@ -11,10 +11,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +37,7 @@ public class RecipeMain extends AppCompatActivity {
     private EditText editText;
     private Button button;
     private String userUrl="";
+    private LinearLayout littlelayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,7 @@ public class RecipeMain extends AppCompatActivity {
         RcpListDatabase = FirebaseDatabase.getInstance().getReference();
         rcpRef = FirebaseDatabase.getInstance().getReference().child("recipe");
         storage=FirebaseStorage.getInstance("gs://cook-bab.appspot.com");
-        StorageReference storageRef = storage.getReference().child("ingredient_photo");
+        final StorageReference storageRef = storage.getReference().child("recipe_photo");
 
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
@@ -60,6 +64,18 @@ public class RecipeMain extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(final DataSnapshot recipeData : dataSnapshot.getChildren()){
+                    littlelayout = new LinearLayout(getApplicationContext());
+                    littlelayout.setOrientation(LinearLayout.HORIZONTAL);
+                    rcplinearlayout.addView(littlelayout);
+                    final String rcpnum=recipeData.getKey();
+
+                    ImageView imageView =new ImageView(getApplicationContext());
+                    StorageReference storageReference = storageRef.child(rcpnum+".jpg");
+                    Glide.with(RecipeMain.this)
+                            .using(new FirebaseImageLoader())
+                            .load(storageReference)
+                            .override(400,200)
+                            .into(imageView);
                     String rt = recipeData.child("title").getValue().toString();
                     TextView tv_recipe = new TextView(getApplicationContext());
 
@@ -67,15 +83,16 @@ public class RecipeMain extends AppCompatActivity {
                     tv_recipe.setHeight(200);
                     tv_recipe.setText(rt);
                     tv_recipe.setLayoutParams(layoutParams);
-                    tv_recipe.setOnClickListener(new View.OnClickListener() {
+                    littlelayout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
-                            intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
+                            intent.putExtra("recipe_num", Integer.parseInt(rcpnum));
                             startActivity(intent);
                         }
                     });
-                    rcplinearlayout.addView(tv_recipe);
+                    littlelayout.addView(imageView);
+                    littlelayout.addView(tv_recipe);
                 }
             }
             @Override
@@ -92,6 +109,18 @@ public class RecipeMain extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for(final DataSnapshot recipeData : dataSnapshot.getChildren()){
+                                littlelayout = new LinearLayout(getApplicationContext());
+                                littlelayout.setOrientation(LinearLayout.HORIZONTAL);
+                                rcplinearlayout.addView(littlelayout);
+                                final String rcpnum=recipeData.getKey();
+
+                                ImageView imageView =new ImageView(getApplicationContext());
+                                StorageReference storageReference = storageRef.child(rcpnum+".jpg");
+                                Glide.with(RecipeMain.this)
+                                        .using(new FirebaseImageLoader())
+                                        .load(storageReference)
+                                        .override(400,200)
+                                        .into(imageView);
                                 String rt = recipeData.child("title").getValue().toString();
                                 TextView tv_recipe = new TextView(getApplicationContext());
 
@@ -99,15 +128,16 @@ public class RecipeMain extends AppCompatActivity {
                                 tv_recipe.setHeight(200);
                                 tv_recipe.setText(rt);
                                 tv_recipe.setLayoutParams(layoutParams);
-                                tv_recipe.setOnClickListener(new View.OnClickListener() {
+                                littlelayout.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
-                                        intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
+                                        intent.putExtra("recipe_num", Integer.parseInt(rcpnum));
                                         startActivity(intent);
                                     }
                                 });
-                                rcplinearlayout.addView(tv_recipe);
+                                littlelayout.addView(imageView);
+                                littlelayout.addView(tv_recipe);
                             }
                         }
                         @Override
@@ -126,37 +156,67 @@ public class RecipeMain extends AppCompatActivity {
                                 final TextView tv_recipe = new TextView(getApplicationContext());
                                 String name = recipeData.child("title").getValue().toString();
                                 if (name.contains(search)) {
-                                    tv_recipe.setText(name);
+                                    littlelayout = new LinearLayout(getApplicationContext());
+                                    littlelayout.setOrientation(LinearLayout.HORIZONTAL);
+                                    rcplinearlayout.addView(littlelayout);
+                                    final String rcpnum=recipeData.getKey();
+
+                                    ImageView imageView =new ImageView(getApplicationContext());
+                                    StorageReference storageReference = storageRef.child(rcpnum+".jpg");
+                                    Glide.with(RecipeMain.this)
+                                            .using(new FirebaseImageLoader())
+                                            .load(storageReference)
+                                            .override(400,200)
+                                            .into(imageView);
+                                    String rt = recipeData.child("title").getValue().toString();
+
                                     tv_recipe.setTextSize(30);
                                     tv_recipe.setHeight(200);
+                                    tv_recipe.setText(rt);
                                     tv_recipe.setLayoutParams(layoutParams);
-                                    tv_recipe.setOnClickListener(new View.OnClickListener() {
+                                    littlelayout.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
-                                            intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
+                                            intent.putExtra("recipe_num", Integer.parseInt(rcpnum));
                                             startActivity(intent);
                                         }
                                     });
-                                    rcplinearlayout.addView(tv_recipe);
+                                    littlelayout.addView(imageView);
+                                    littlelayout.addView(tv_recipe);
                                 } else {
                                     int many = Integer.parseInt(recipeData.child("need").getValue().toString());
                                     for (int i = 1; i <= many; i++) {
                                         String ingname = recipeData.child("ingredients").child(String.valueOf(i)).child("name").getValue().toString();
                                         if (search.equals(ingname)) {
-                                            tv_recipe.setText(name);
+                                            littlelayout = new LinearLayout(getApplicationContext());
+                                            littlelayout.setOrientation(LinearLayout.HORIZONTAL);
+                                            rcplinearlayout.addView(littlelayout);
+                                            final String rcpnum=recipeData.getKey();
+
+                                            ImageView imageView =new ImageView(getApplicationContext());
+                                            StorageReference storageReference = storageRef.child(rcpnum+".jpg");
+                                            Glide.with(RecipeMain.this)
+                                                    .using(new FirebaseImageLoader())
+                                                    .load(storageReference)
+                                                    .override(400,200)
+                                                    .into(imageView);
+                                            String rt = recipeData.child("title").getValue().toString();
+
                                             tv_recipe.setTextSize(30);
                                             tv_recipe.setHeight(200);
+                                            tv_recipe.setText(rt);
                                             tv_recipe.setLayoutParams(layoutParams);
-                                            tv_recipe.setOnClickListener(new View.OnClickListener() {
+                                            littlelayout.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
                                                     Intent intent = new Intent(getApplicationContext(), RecipeActivity.class);
-                                                    intent.putExtra("recipe_num", Integer.parseInt(recipeData.getKey()));
+                                                    intent.putExtra("recipe_num", Integer.parseInt(rcpnum));
                                                     startActivity(intent);
                                                 }
                                             });
-                                            rcplinearlayout.addView(tv_recipe);
+                                            littlelayout.addView(imageView);
+                                            littlelayout.addView(tv_recipe);
                                             break;
                                         }
                                     }
