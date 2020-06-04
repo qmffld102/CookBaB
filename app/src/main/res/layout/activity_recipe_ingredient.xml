@@ -22,7 +22,7 @@
             android:backgroundTint="@color/colorPrimaryDark"
             android:fontFamily="@font/namum"
             android:gravity="center"
-            android:text="재료명 / 보유량 / 필요량"
+            android:text="온라인 마켓 선택"
             android:textColor="@color/colortext"
             android:textSize="20dp">
 
@@ -90,10 +90,17 @@
 
             android:text="마켓컬리" />
     </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:text="*카트 이미지 클릭 시 온라인 마켓으로 연결됩니다.">
 
+    </TextView>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="494dp"
         android:layout_weight="10">
 
         <LinearLayout
@@ -105,7 +112,7 @@
 
     <Button
         android:id="@+id/startcook"
-        android:layout_width="match_parent"
+        android:layout_width="398dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -114,6 +121,7 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:fontFamily="@font/namum"
         android:text="요리 시작!"
+        android:layout_gravity="center"
         android:textColor="@color/colortext"
         android:textSize="20dp"
         android:textStyle="bold" />
