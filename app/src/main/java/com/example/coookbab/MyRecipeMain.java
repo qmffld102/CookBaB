@@ -2,8 +2,11 @@ package com.example.coookbab;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -83,6 +86,10 @@ public class MyRecipeMain extends AppCompatActivity {
                             .load(storageReference)
                             .override(400,200)
                             .into(imageView);
+                    Log.e("##", "글씨체적용");
+                    tv_recipe.setTextColor(Color.BLACK);
+                    Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
+                    tv_recipe.setTypeface(typeface);
                     tv_recipe.setTextSize(30);
                     tv_recipe.setHeight(200);
                     tv_recipe.setLayoutParams(layoutParams);
@@ -136,6 +143,10 @@ public class MyRecipeMain extends AppCompatActivity {
                                         .load(storageReference)
                                         .override(400,200)
                                         .into(imageView);
+                                Log.e("##", "글씨체적용");
+                                tv_recipe.setTextColor(Color.BLACK);
+                                Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
+                                tv_recipe.setTypeface(typeface);
                                 tv_recipe.setTextSize(30);
                                 tv_recipe.setHeight(200);
                                 tv_recipe.setLayoutParams(layoutParams);
@@ -192,6 +203,10 @@ public class MyRecipeMain extends AppCompatActivity {
                                                     .load(storageReference)
                                                     .override(400,200)
                                                     .into(imageView);
+                                            Log.e("##", "글씨체적용");
+                                            tv_recipe.setTextColor(Color.BLACK);
+                                            Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
+                                            tv_recipe.setTypeface(typeface);
                                             tv_recipe.setTextSize(30);
                                             tv_recipe.setHeight(200);
                                             tv_recipe.setLayoutParams(layoutParams);
@@ -232,6 +247,10 @@ public class MyRecipeMain extends AppCompatActivity {
                                                             .load(storageReference)
                                                             .override(400,200)
                                                             .into(imageView);
+                                                    Log.e("##", "글씨체적용");
+                                                    tv_recipe.setTextColor(Color.BLACK);
+                                                    Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
+                                                    tv_recipe.setTypeface(typeface);
                                                     tv_recipe.setTextSize(30);
                                                     tv_recipe.setHeight(200);
                                                     tv_recipe.setLayoutParams(layoutParams);

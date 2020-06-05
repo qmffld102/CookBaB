@@ -2,8 +2,11 @@ package com.example.coookbab;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -84,6 +87,10 @@ public class RefrigeratorMain extends AppCompatActivity {
                     inglayout = new LinearLayout(getApplicationContext());
                     inglayout.setOrientation(LinearLayout.VERTICAL);
                     TextView ingn = new TextView(getApplicationContext());
+                    Log.e("##", "글씨체적용");
+                    ingn.setTextColor(Color.BLACK);
+                    Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
+                    ingn.setTypeface(typeface);
                     ingn.setText(ingname);
                     Glide.with(RefrigeratorMain.this)
                             .using(new FirebaseImageLoader())
@@ -146,7 +153,10 @@ public class RefrigeratorMain extends AppCompatActivity {
                                inglayout.setOrientation(LinearLayout.VERTICAL);
                                TextView ingn = new TextView(getApplicationContext());
                                ingn.setText(ingname);
-
+                               Log.e("##", "글씨체적용");
+                               ingn.setTextColor(Color.BLACK);
+                               Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
+                               ingn.setTypeface(typeface);
                                ImageView imageView = new ImageView(getApplicationContext());
                                StorageReference storageRef = storage.getReference().child("ingredient_photo/"+filename+".png");
                                Glide.with(RefrigeratorMain.this)
@@ -197,7 +207,10 @@ public class RefrigeratorMain extends AppCompatActivity {
                                inglayout.setOrientation(LinearLayout.VERTICAL);
                                TextView ingn = new TextView(getApplicationContext());
                                ingn.setText(ingname);
-
+                               Log.e("##", "글씨체적용");
+                               ingn.setTextColor(Color.BLACK);
+                               Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
+                               ingn.setTypeface(typeface);
                                if(ingname.equals(igname)) {
                                    ImageView imageView = new ImageView(getApplicationContext());
                                    StorageReference storageRef = storage.getReference().child("ingredient_photo/" + filename + ".png");

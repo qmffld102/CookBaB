@@ -2,10 +2,12 @@ package com.example.coookbab;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -69,6 +71,10 @@ public class AddIngredient extends AppCompatActivity {
                     String food = foodData.child("ingredient").getValue().toString();
                     Log.e(this.getClass().getName(), food);
                     final CheckBox tv_food = new CheckBox(getApplicationContext());
+                    Log.e("##", "글씨체적용");
+                    tv_food.setTextColor(Color.BLACK);
+                    Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
+                    tv_food.setTypeface(typeface);
                     tv_food.setTextSize(25);
                     tv_food.setText(food.toString());
                     tv_food.setLayoutParams(layoutParams);
