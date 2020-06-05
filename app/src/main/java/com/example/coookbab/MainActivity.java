@@ -2,6 +2,8 @@ package com.example.coookbab;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,13 +22,23 @@ import java.util.Locale;
 
 
 public class MainActivity extends TabActivity {
-    Button button;
-    private TextView tv_date;
+    private AlarmManager alarmManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent al_intent = new Intent(this, Alarm.class);
+        PendingIntent pIntent = PendingIntent.getBroadcast(this, 0, al_intent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        // 지정한 시간에 매일 알림
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),  AlarmManager.INTERVAL_DAY, pIntent);
 
         //첫번째 탭
         TabHost tabHost = getTabHost();
