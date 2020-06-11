@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,16 +68,23 @@ public class RecipeMain extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(final DataSnapshot recipeData : dataSnapshot.getChildren()){
                     littlelayout = new LinearLayout(getApplicationContext());
-                    littlelayout.setOrientation(LinearLayout.HORIZONTAL);
+                    littlelayout.setOrientation(LinearLayout.VERTICAL);
+                    littlelayout.setGravity(Gravity.CENTER);
                     rcplinearlayout.addView(littlelayout);
                     final String rcpnum=recipeData.getKey();
 
                     ImageView imageView =new ImageView(getApplicationContext());
+                    int width = 1000;
+                    int height = 1000;
+                    imageView.setForegroundGravity(Gravity.TOP);
+
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
+
+                    imageView.setLayoutParams(params);
                     StorageReference storageReference = storageRef.child(rcpnum+".jpg");
                     Glide.with(RecipeMain.this)
                             .using(new FirebaseImageLoader())
                             .load(storageReference)
-                            .override(400,200)
                             .into(imageView);
                     String rt = recipeData.child("title").getValue().toString();
                     TextView tv_recipe = new TextView(getApplicationContext());
@@ -84,6 +93,7 @@ public class RecipeMain extends AppCompatActivity {
                     Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
                     tv_recipe.setTypeface(typeface);
                     tv_recipe.setTextSize(30);
+                    tv_recipe.setGravity(Gravity.CENTER|Gravity.BOTTOM);
                     tv_recipe.setHeight(200);
                     tv_recipe.setText(rt);
                     tv_recipe.setLayoutParams(layoutParams);
@@ -95,8 +105,8 @@ public class RecipeMain extends AppCompatActivity {
                             startActivity(intent);
                         }
                     });
-                    littlelayout.addView(imageView);
                     littlelayout.addView(tv_recipe);
+                    littlelayout.addView(imageView);
                 }
             }
             @Override
