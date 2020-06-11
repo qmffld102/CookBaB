@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -91,6 +92,7 @@ public class RefrigeratorMain extends AppCompatActivity {
                     ingn.setTextColor(Color.BLACK);
                     Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
                     ingn.setTypeface(typeface);
+                    ingn.setGravity(Gravity.CENTER);
                     ingn.setText(ingname);
                     Glide.with(RefrigeratorMain.this)
                             .using(new FirebaseImageLoader())
@@ -154,6 +156,7 @@ public class RefrigeratorMain extends AppCompatActivity {
                                TextView ingn = new TextView(getApplicationContext());
                                ingn.setText(ingname);
                                Log.e("##", "글씨체적용");
+                               ingn.setGravity(Gravity.CENTER);
                                ingn.setTextColor(Color.BLACK);
                                Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
                                ingn.setTypeface(typeface);
@@ -208,6 +211,7 @@ public class RefrigeratorMain extends AppCompatActivity {
                                TextView ingn = new TextView(getApplicationContext());
                                ingn.setText(ingname);
                                Log.e("##", "글씨체적용");
+                               ingn.setGravity(Gravity.CENTER);
                                ingn.setTextColor(Color.BLACK);
                                Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
                                ingn.setTypeface(typeface);
