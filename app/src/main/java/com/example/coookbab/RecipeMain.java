@@ -88,12 +88,11 @@ public class RecipeMain extends AppCompatActivity {
                             .into(imageView);
                     String rt = recipeData.child("title").getValue().toString();
                     TextView tv_recipe = new TextView(getApplicationContext());
-                    Log.e("##", "글씨체적용");
                     tv_recipe.setTextColor(Color.BLACK);
                     Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
                     tv_recipe.setTypeface(typeface);
                     tv_recipe.setTextSize(30);
-                    tv_recipe.setGravity(Gravity.CENTER|Gravity.BOTTOM);
+                    tv_recipe.setGravity(Gravity.CENTER|Gravity.BOTTOM); //추가
                     tv_recipe.setHeight(200);
                     tv_recipe.setText(rt);
                     tv_recipe.setLayoutParams(layoutParams);
@@ -119,30 +118,38 @@ public class RecipeMain extends AppCompatActivity {
             public void onClick(View v) {
                 final String search = editText.getText().toString();
                 if(search.equals("0")){
+                    rcplinearlayout.removeAllViews();
                     RcpListDatabase.child("recipe").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for(final DataSnapshot recipeData : dataSnapshot.getChildren()){
                                 littlelayout = new LinearLayout(getApplicationContext());
-                                littlelayout.setOrientation(LinearLayout.HORIZONTAL);
+                                littlelayout.setOrientation(LinearLayout.VERTICAL);
+                                littlelayout.setGravity(Gravity.CENTER);
                                 rcplinearlayout.addView(littlelayout);
                                 final String rcpnum=recipeData.getKey();
 
                                 ImageView imageView =new ImageView(getApplicationContext());
+                                int width = 1000;
+                                int height = 1000;
+                                imageView.setForegroundGravity(Gravity.TOP);
+
+                                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
+
+                                imageView.setLayoutParams(params);
                                 StorageReference storageReference = storageRef.child(rcpnum+".jpg");
                                 Glide.with(RecipeMain.this)
                                         .using(new FirebaseImageLoader())
                                         .load(storageReference)
-                                        .override(400,200)
                                         .into(imageView);
                                 String rt = recipeData.child("title").getValue().toString();
                                 TextView tv_recipe = new TextView(getApplicationContext());
-                                Log.e("##", "글씨체적용");
                                 tv_recipe.setTextColor(Color.BLACK);
                                 Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
                                 tv_recipe.setTypeface(typeface);
                                 tv_recipe.setTextSize(30);
                                 tv_recipe.setHeight(200);
+                                tv_recipe.setGravity(Gravity.CENTER|Gravity.BOTTOM); //추가
                                 tv_recipe.setText(rt);
                                 tv_recipe.setLayoutParams(layoutParams);
                                 littlelayout.setOnClickListener(new View.OnClickListener() {
@@ -153,8 +160,9 @@ public class RecipeMain extends AppCompatActivity {
                                         startActivity(intent);
                                     }
                                 });
-                                littlelayout.addView(imageView);
                                 littlelayout.addView(tv_recipe);
+                                littlelayout.addView(imageView);
+
                             }
                         }
                         @Override
@@ -174,23 +182,30 @@ public class RecipeMain extends AppCompatActivity {
                                 String name = recipeData.child("title").getValue().toString();
                                 if (name.contains(search)) {
                                     littlelayout = new LinearLayout(getApplicationContext());
-                                    littlelayout.setOrientation(LinearLayout.HORIZONTAL);
+                                    littlelayout.setOrientation(LinearLayout.VERTICAL);
+                                    littlelayout.setGravity(Gravity.CENTER);
                                     rcplinearlayout.addView(littlelayout);
                                     final String rcpnum=recipeData.getKey();
 
                                     ImageView imageView =new ImageView(getApplicationContext());
+                                    int width = 1000;
+                                    int height = 1000;
+                                    imageView.setForegroundGravity(Gravity.TOP);
+
+                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
+
+                                    imageView.setLayoutParams(params);
                                     StorageReference storageReference = storageRef.child(rcpnum+".jpg");
                                     Glide.with(RecipeMain.this)
                                             .using(new FirebaseImageLoader())
                                             .load(storageReference)
-                                            .override(400,200)
                                             .into(imageView);
                                     String rt = recipeData.child("title").getValue().toString();
-                                    Log.e("##", "글씨체적용");
                                     tv_recipe.setTextColor(Color.BLACK);
                                     Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.namum);
                                     tv_recipe.setTypeface(typeface);
                                     tv_recipe.setTextSize(30);
+                                    tv_recipe.setGravity(Gravity.CENTER|Gravity.BOTTOM); //추가
                                     tv_recipe.setHeight(200);
                                     tv_recipe.setText(rt);
                                     tv_recipe.setLayoutParams(layoutParams);
@@ -202,24 +217,32 @@ public class RecipeMain extends AppCompatActivity {
                                             startActivity(intent);
                                         }
                                     });
-                                    littlelayout.addView(imageView);
                                     littlelayout.addView(tv_recipe);
+                                    littlelayout.addView(imageView);
+
                                 } else {
                                     int many = Integer.parseInt(recipeData.child("need").getValue().toString());
                                     for (int i = 1; i <= many; i++) {
                                         String ingname = recipeData.child("ingredients").child(String.valueOf(i)).child("name").getValue().toString();
                                         if (search.equals(ingname)) {
                                             littlelayout = new LinearLayout(getApplicationContext());
-                                            littlelayout.setOrientation(LinearLayout.HORIZONTAL);
+                                            littlelayout.setOrientation(LinearLayout.VERTICAL);
+                                            littlelayout.setGravity(Gravity.CENTER);
                                             rcplinearlayout.addView(littlelayout);
                                             final String rcpnum=recipeData.getKey();
 
                                             ImageView imageView =new ImageView(getApplicationContext());
+                                            int width = 1000;
+                                            int height = 1000;
+                                            imageView.setForegroundGravity(Gravity.TOP);
+
+                                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
+
+                                            imageView.setLayoutParams(params);
                                             StorageReference storageReference = storageRef.child(rcpnum+".jpg");
                                             Glide.with(RecipeMain.this)
                                                     .using(new FirebaseImageLoader())
                                                     .load(storageReference)
-                                                    .override(400,200)
                                                     .into(imageView);
                                             String rt = recipeData.child("title").getValue().toString();
                                             Log.e("##", "글씨체적용");
@@ -228,6 +251,7 @@ public class RecipeMain extends AppCompatActivity {
                                             tv_recipe.setTypeface(typeface);
                                             tv_recipe.setTextSize(30);
                                             tv_recipe.setHeight(200);
+                                            tv_recipe.setGravity(Gravity.CENTER|Gravity.BOTTOM); //추가
                                             tv_recipe.setText(rt);
                                             tv_recipe.setLayoutParams(layoutParams);
                                             littlelayout.setOnClickListener(new View.OnClickListener() {
@@ -238,8 +262,9 @@ public class RecipeMain extends AppCompatActivity {
                                                     startActivity(intent);
                                                 }
                                             });
-                                            littlelayout.addView(imageView);
                                             littlelayout.addView(tv_recipe);
+                                            littlelayout.addView(imageView);
+
                                             break;
                                         }
                                     }
