@@ -3,6 +3,8 @@ package com.example.coookbab;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -104,8 +106,21 @@ public class RecipeMain extends AppCompatActivity {
                             startActivity(intent);
                         }
                     });
+                    TextView enter= new TextView(getApplicationContext());
+                    enter.setText(" ");
+                    enter.setTextSize(30);
+                    View view = new View(getApplicationContext());
+                    view.setBackgroundColor(Color.GRAY);
+                    width = 1000;
+                    height = 5;
+
+                    params = new LinearLayout.LayoutParams(width, height);
+
+                    view.setLayoutParams(params);
                     littlelayout.addView(tv_recipe);
                     littlelayout.addView(imageView);
+                    littlelayout.addView(enter);
+                    littlelayout.addView(view);
                 }
             }
             @Override
@@ -160,9 +175,21 @@ public class RecipeMain extends AppCompatActivity {
                                         startActivity(intent);
                                     }
                                 });
+                                TextView enter= new TextView(getApplicationContext());
+                                enter.setText(" ");
+                                enter.setTextSize(30);
+                                View view = new View(getApplicationContext());
+                                view.setBackgroundColor(Color.GRAY);
+                                width = 1000;
+                                height = 5;
+
+                                params = new LinearLayout.LayoutParams(width, height);
+
+                                view.setLayoutParams(params);
                                 littlelayout.addView(tv_recipe);
                                 littlelayout.addView(imageView);
-
+                                littlelayout.addView(enter);
+                                littlelayout.addView(view);
                             }
                         }
                         @Override
@@ -217,8 +244,21 @@ public class RecipeMain extends AppCompatActivity {
                                             startActivity(intent);
                                         }
                                     });
+                                    TextView enter= new TextView(getApplicationContext());
+                                    enter.setText(" ");
+                                    enter.setTextSize(30);
+                                    View view = new View(getApplicationContext());
+                                    view.setBackgroundColor(Color.GRAY);
+                                    width = 1000;
+                                    height = 5;
+
+                                    params = new LinearLayout.LayoutParams(width, height);
+
+                                    view.setLayoutParams(params);
                                     littlelayout.addView(tv_recipe);
                                     littlelayout.addView(imageView);
+                                    littlelayout.addView(enter);
+                                    littlelayout.addView(view);
 
                                 } else {
                                     int many = Integer.parseInt(recipeData.child("need").getValue().toString());
@@ -262,9 +302,21 @@ public class RecipeMain extends AppCompatActivity {
                                                     startActivity(intent);
                                                 }
                                             });
+                                            TextView enter= new TextView(getApplicationContext());
+                                            enter.setText(" ");
+                                            enter.setTextSize(30);
+                                            View view = new View(getApplicationContext());
+                                            view.setBackgroundColor(Color.GRAY);
+                                            width = 1000;
+                                            height = 5;
+
+                                            params = new LinearLayout.LayoutParams(width, height);
+
+                                            view.setLayoutParams(params);
                                             littlelayout.addView(tv_recipe);
                                             littlelayout.addView(imageView);
-
+                                            littlelayout.addView(enter);
+                                            littlelayout.addView(view);
                                             break;
                                         }
                                     }

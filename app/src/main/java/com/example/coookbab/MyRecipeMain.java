@@ -110,10 +110,23 @@ public class MyRecipeMain extends AppCompatActivity {
                             startActivity(intent);
                         }
                     });
+                    TextView enter= new TextView(getApplicationContext());
+                    enter.setText(" ");
+                    enter.setTextSize(30);
+                    View view = new View(getApplicationContext());
+                    view.setBackgroundColor(Color.GRAY);
+                    width = 1000;
+                    height = 5;
+
+                    params = new LinearLayout.LayoutParams(width, height);
+
+                    view.setLayoutParams(params);
                     rcplinearlayout.addView(littlelayout);
+
                     littlelayout.addView(tv_recipe);
                     littlelayout.addView(imageView);
-
+                    littlelayout.addView(enter);
+                    littlelayout.addView(view);
                 }
             }
 
@@ -175,10 +188,22 @@ public class MyRecipeMain extends AppCompatActivity {
                                         startActivity(intent);
                                     }
                                 });
+                                TextView enter= new TextView(getApplicationContext());
+                                enter.setText(" ");
+                                enter.setTextSize(30);
+                                View view = new View(getApplicationContext());
+                                view.setBackgroundColor(Color.GRAY);
+                                width = 1000;
+                                height = 5;
+
+                                params = new LinearLayout.LayoutParams(width, height);
+
+                                view.setLayoutParams(params);
                                 rcplinearlayout.addView(littlelayout);
                                 littlelayout.addView(tv_recipe);
                                 littlelayout.addView(imageView);
-
+                                littlelayout.addView(enter);
+                                littlelayout.addView(view);
                             }
                         }
 
@@ -243,10 +268,22 @@ public class MyRecipeMain extends AppCompatActivity {
                                                     startActivity(intent);
                                                 }
                                             });
+                                            TextView enter= new TextView(getApplicationContext());
+                                            enter.setText(" ");
+                                            enter.setTextSize(30);
+                                            View view = new View(getApplicationContext());
+                                            view.setBackgroundColor(Color.GRAY);
+                                            width = 1000;
+                                            height = 5;
+
+                                            params = new LinearLayout.LayoutParams(width, height);
+
+                                            view.setLayoutParams(params);
                                             rcplinearlayout.addView(littlelayout);
                                             littlelayout.addView(tv_recipe);
                                             littlelayout.addView(imageView);
-
+                                            littlelayout.addView(enter);
+                                            littlelayout.addView(view);
                                         } else {
                                             int many = Integer.parseInt(dts.child(rtnum).child("need").getValue().toString());
                                             for (int i = 1; i <= many; i++) {
@@ -299,11 +336,23 @@ public class MyRecipeMain extends AppCompatActivity {
                                                     if(littlelayout.getParent() != null){
                                                         ((ViewGroup)littlelayout.getParent()).removeView(littlelayout);
                                                     }
+                                                    TextView enter= new TextView(getApplicationContext());
+                                                    enter.setText(" ");
+                                                    enter.setTextSize(30);
+                                                    View view = new View(getApplicationContext());
+                                                    view.setBackgroundColor(Color.GRAY);
+                                                    width = 1000;
+                                                    height = 5;
+
+                                                    params = new LinearLayout.LayoutParams(width, height);
+
+                                                    view.setLayoutParams(params);
                                                     rcplinearlayout.addView(littlelayout);
 
                                                     littlelayout.addView(tv_recipe);
                                                     littlelayout.addView(imageView);
-
+                                                    littlelayout.addView(enter);
+                                                    littlelayout.addView(view);
                                                     break;
                                                 }
                                             }
