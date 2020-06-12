@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,7 +28,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.Date;
 import java.sql.Ref;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class AddIngredient extends AppCompatActivity {
 
@@ -39,7 +44,7 @@ public class AddIngredient extends AppCompatActivity {
     private EditText editlife;
     private Button savebtn;
     private Button canclebtn;
-
+    private String date;
     private String number;
     private String name;
 
@@ -47,6 +52,15 @@ public class AddIngredient extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ingredient);
+
+        Date currentTime = (Date) Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd", Locale.getDefault());
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
+
+        date = yearFormat.format(currentTime)+monthFormat.format(currentTime)+dateFormat.format(currentTime);
+
+        Log.e("##", date);
 
         linearLayout =(LinearLayout)findViewById(R.id.linearlayout);
         editlife =(EditText)findViewById(R.id.editlife);
@@ -99,13 +113,18 @@ public class AddIngredient extends AppCompatActivity {
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddIngredient.this, MainActivity.class);
-                addDatabase.push().child(number);
-                addDatabase.child(number).child("name").setValue(name);
-                addDatabase.child(number).child("ingredientid").setValue(number);
-                addDatabase.child(number).child("num").setValue(editnum.getText().toString());
-                addDatabase.child(number).child("life").setValue(editlife.getText().toString());
-                startActivity(intent);
+                if(editnum.getText().toString().equals("0")||Integer.parseInt(editlife.getText().toString())<Integer.parseInt(date)){
+                    Toast.makeText(getApplicationContext(), "재료의 갯수나 유통기한을 다시 한 번 확인해주세요!", Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent(AddIngredient.this, MainActivity.class);
+                    addDatabase.push().child(number);
+                    addDatabase.child(number).child("name").setValue(name);
+                    addDatabase.child(number).child("ingredientid").setValue(number);
+                    addDatabase.child(number).child("num").setValue(editnum.getText().toString());
+                    addDatabase.child(number).child("life").setValue(editlife.getText().toString());
+                    startActivity(intent);
+                }
+
             }
         });
 
