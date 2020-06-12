@@ -35,7 +35,7 @@ public class IngredientDetail extends AppCompatActivity {
     private Button delbtn;
     private EditText ingredientnum;
     private EditText ingredientlife;
-    private TextView tip;
+    private TextView tip, tv_igtitle, textView8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +55,18 @@ public class IngredientDetail extends AppCompatActivity {
         delbtn = (Button)findViewById(R.id.delbtn);
         ingredientlife =(EditText)findViewById(R.id.inglife);
         ingredientnum = (EditText)findViewById(R.id.ingnum);
-
-
+        tv_igtitle = findViewById(R.id.tv_igtitle);
+        textView8 = findViewById(R.id.textView8);
         Intent intent = getIntent();
         final String filename =intent.getExtras().getString("filename");
+        textView8.setText("<재료 보관 방법>");
         mTip.child(filename).child("tip").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue(String.class)!=null){
                     String value = dataSnapshot.getValue(String.class);
                     tip.setText(value);
-                }
-                else{
+                }else{
                 }
             }
             @Override
@@ -76,6 +76,10 @@ public class IngredientDetail extends AppCompatActivity {
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(filename).child("name").getValue(String.class)!=null){
+                    tv_igtitle.setText(dataSnapshot.child(filename).child("name").getValue().toString());
+                }else{
+                }
                 if(dataSnapshot.child(filename).child("num").getValue(String.class)!=null){
                     ingredientnum.setText(dataSnapshot.child(filename).child("num").getValue().toString());
                 }else{
