@@ -1,4 +1,4 @@
-package com.example.coookbab;
+package com.mobile18team.coookbab;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.coookbab">
+    package="com.mobile18team.coookbab">
 
     <uses-permission android:name="android.hardware.sensor.proximity" />
 
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Splashscreen"
+            android:name="com.mobile18team.coookbab.Splashscreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,22 +20,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".Timer" />
-        <activity android:name=".RecipeIngredient" />
-        <activity android:name=".CookActivity" />
-        <activity android:name=".IngredientDetail" />
-        <activity android:name=".AddIngredient" />
-        <activity android:name=".RecipeActivity" />
-        <activity android:name=".MyRecipeMain" />
-        <activity android:name=".RecipeMain" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".RefrigeratorMain" />
-        <activity android:name=".FirstAuthActivity">
+        <activity android:name="com.mobile18team.coookbab.LoginActivity" />
+        <activity android:name="com.mobile18team.coookbab.Timer" />
+        <activity android:name="com.mobile18team.coookbab.RecipeIngredient" />
+        <activity android:name="com.mobile18team.coookbab.CookActivity" />
+        <activity android:name="com.mobile18team.coookbab.IngredientDetail" />
+        <activity android:name="com.mobile18team.coookbab.AddIngredient" />
+        <activity android:name="com.mobile18team.coookbab.RecipeActivity" />
+        <activity android:name="com.mobile18team.coookbab.MyRecipeMain" />
+        <activity android:name="com.mobile18team.coookbab.RecipeMain" />
+        <activity android:name="com.mobile18team.coookbab.MainActivity" />
+        <activity android:name="com.mobile18team.coookbab.RefrigeratorMain" />
+        <activity android:name="com.mobile18team.coookbab.FirstAuthActivity">
 
         </activity>
 
-        <receiver android:name=".Alarm">
+        <receiver android:name="com.mobile18team.coookbab.Alarm">
             <intent-filter>
                 <action android:name="com.example.coookbab.TEST" />
             </intent-filter>

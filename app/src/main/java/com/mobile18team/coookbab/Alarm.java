@@ -1,4 +1,4 @@
-package com.example.coookbab;
+package com.mobile18team.coookbab;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

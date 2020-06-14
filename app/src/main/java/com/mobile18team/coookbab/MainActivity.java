@@ -1,6 +1,4 @@
-package com.example.coookbab;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.mobile18team.coookbab;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -8,17 +6,10 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TabHost;
-import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 
 public class MainActivity extends TabActivity {
