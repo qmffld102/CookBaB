@@ -39,6 +39,7 @@ public class RecipeIngredient extends AppCompatActivity {
     private String ingredientid;
     private RadioButton rdo_coupang, rdo_ssg, rdo_gs, rdo_emart, rdo_kulry, rdo_timon;
     private RadioGroup rdogroup_market;
+    private Button cookbutton;
     String packagename;
     int result_market;
     private int [] table = new int[500];
@@ -47,10 +48,11 @@ public class RecipeIngredient extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_ingredient);
         final Intent intent=getIntent();
-        String recipe_num=intent.getExtras().getString("recipe_num");//레시피 번호
+        final String recipe_num=intent.getExtras().getString("recipe_num");//레시피 번호
         String recipe_need=intent.getExtras().getString("i");
         final int rcpneed= Integer.parseInt(recipe_need);//총 몇개의 재료
 
+        cookbutton=findViewById(R.id.startcook);
         rdo_coupang=findViewById(R.id.rdo_coupang);
         rdo_emart=findViewById(R.id.rdo_emart);
         rdo_gs=findViewById(R.id.rdo_gs);
@@ -196,6 +198,27 @@ public class RecipeIngredient extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        cookbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(RecipeIngredient.this, CookActivity.class);
+                intent1.putExtra("recipe_num", recipe_num);
+                DatabaseReference mReference=mDatabase.getReference().child("recipe").child(recipe_num);
+                final String[] photo_num = new String[1];
+                mReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        photo_num[0] =dataSnapshot.child("photo_num").child("total").getValue().toString();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                intent1.putExtra("photo_num", photo_num);
+                startActivity(intent1);
             }
         });
 
